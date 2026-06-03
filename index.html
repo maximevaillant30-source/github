@@ -2387,18 +2387,254 @@
       }, { passive: true });
     }
 
-    // ── Cursor glow on technique cards ──
-    document.querySelectorAll('.technique-card').forEach(card => {
+    // ── Cursor glow on all cards ──
+    document.querySelectorAll('.technique-card, .pop-card, .tarif-card, .qs-highlight').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
         const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
-        card.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(74,124,89,.06) 0%, #fff 60%)`;
+        card.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(74,124,89,.07) 0%, var(--white,#fff) 65%)`;
       });
-      card.addEventListener('mouseleave', () => {
-        card.style.background = '';
+      card.addEventListener('mouseleave', () => { card.style.background = ''; });
+    });
+
+    // ── Custom cursor ──
+    if (!prefersReducedMotion && window.innerWidth > 768) {
+      const cursor = document.createElement('div');
+      const cursorDot = document.createElement('div');
+      cursor.id = 'cursor-ring';
+      cursorDot.id = 'cursor-dot';
+      cursor.style.cssText = `position:fixed;width:36px;height:36px;border:2px solid rgba(74,124,89,.5);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,opacity .25s;will-change:left,top;`;
+      cursorDot.style.cssText = `position:fixed;width:6px;height:6px;background:var(--green);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;will-change:left,top;`;
+      document.body.appendChild(cursor);
+      document.body.appendChild(cursorDot);
+      let cx = 0, cy = 0, dx = 0, dy = 0;
+      document.addEventListener('mousemove', e => { dx = e.clientX; dy = e.clientY; cursorDot.style.left = dx+'px'; cursorDot.style.top = dy+'px'; });
+      (function animCursor() {
+        cx += (dx - cx) * 0.14;
+        cy += (dy - cy) * 0.14;
+        cursor.style.left = cx+'px';
+        cursor.style.top  = cy+'px';
+        requestAnimationFrame(animCursor);
+      })();
+      document.querySelectorAll('a,button,.technique-card,.pop-card,.tarif-card,.patho-card,.step-card').forEach(el => {
+        el.addEventListener('mouseenter', () => { cursor.style.width='56px'; cursor.style.height='56px'; cursor.style.borderColor='rgba(74,124,89,.9)'; cursor.style.background='rgba(74,124,89,.06)'; });
+        el.addEventListener('mouseleave', () => { cursor.style.width='36px'; cursor.style.height='36px'; cursor.style.borderColor='rgba(74,124,89,.5)'; cursor.style.background=''; });
+      });
+      document.addEventListener('mouseleave', () => { cursor.style.opacity='0'; cursorDot.style.opacity='0'; });
+      document.addEventListener('mouseenter', () => { cursor.style.opacity='1'; cursorDot.style.opacity='1'; });
+    }
+
+    // ── Canvas particles on hero ──
+    if (!prefersReducedMotion) {
+      const canvas = document.createElement('canvas');
+      canvas.id = 'hero-particles';
+      canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+      const hero = document.getElementById('hero');
+      hero.style.position = 'relative';
+      hero.insertBefore(canvas, hero.firstChild);
+
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [];
+      const resize = () => { W = canvas.width = hero.offsetWidth; H = canvas.height = hero.offsetHeight; };
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+
+      const COLORS = ['rgba(74,124,89,', 'rgba(201,168,76,', 'rgba(94,154,111,'];
+      class Particle {
+        constructor() { this.reset(); }
+        reset() {
+          this.x = Math.random() * W;
+          this.y = Math.random() * H;
+          this.r = Math.random() * 2.5 + .5;
+          this.a = Math.random() * .35 + .05;
+          this.vx = (Math.random() - .5) * .4;
+          this.vy = (Math.random() - .5) * .4;
+          this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+          this.life = 0;
+          this.maxLife = Math.random() * 200 + 100;
+        }
+        update() {
+          this.x += this.vx; this.y += this.vy; this.life++;
+          if (this.life > this.maxLife || this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+        }
+        draw() {
+          const progress = this.life / this.maxLife;
+          const opacity = progress < .2 ? progress / .2 : progress > .8 ? (1 - progress) / .2 : 1;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+          ctx.fillStyle = this.color + (this.a * opacity) + ')';
+          ctx.fill();
+        }
+      }
+      for (let i = 0; i < 55; i++) particles.push(new Particle());
+
+      // Draw connecting lines between close particles
+      const drawLines = () => {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < 90) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(74,124,89,${(1 - dist/90) * .08})`;
+              ctx.lineWidth = .7;
+              ctx.stroke();
+            }
+          }
+        }
+      };
+
+      (function animParticles() {
+        if (!document.getElementById('hero-particles')) return;
+        ctx.clearRect(0, 0, W, H);
+        drawLines();
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animParticles);
+      })();
+    }
+
+    // ── 3D Tilt on cards ──
+    if (!prefersReducedMotion && window.innerWidth > 768) {
+      document.querySelectorAll('.technique-card, .pop-card, .tarif-card').forEach(card => {
+        card.style.transition = 'transform .15s ease, box-shadow .15s ease';
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - .5;
+          const y = (e.clientY - rect.top) / rect.height - .5;
+          card.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${y * -8}deg) scale(1.02)`;
+          card.style.boxShadow = `${-x*12}px ${-y*12}px 32px rgba(44,44,44,.13)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+          card.style.boxShadow = '';
+        });
+      });
+    }
+
+    // ── Magnetic buttons ──
+    if (!prefersReducedMotion && window.innerWidth > 768) {
+      document.querySelectorAll('.btn-doctolib-hero, .floating-rdv-btn, .btn-doctolib-large').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const rect = btn.getBoundingClientRect();
+          const x = (e.clientX - rect.left - rect.width / 2) * .25;
+          const y = (e.clientY - rect.top - rect.height / 2) * .25;
+          btn.style.transform = `translate(${x}px, ${y}px)`;
+        });
+        btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+      });
+    }
+
+    // ── Animated counter on hero stats ──
+    const statEls = document.querySelectorAll('.hero-stat strong');
+    const statsData = [
+      { el: statEls[0], text: 'Juillet', static: true },
+      { el: statEls[1], text: 'ISOGM',   static: true },
+      { el: statEls[2], text: 'EBP',     static: true }
+    ];
+    if (!prefersReducedMotion && statEls.length) {
+      const heroObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            statEls.forEach((el, i) => {
+              el.style.animation = `fadeInUp .6s ${i * .15}s cubic-bezier(.22,1,.36,1) both`;
+            });
+            heroObs.disconnect();
+          }
+        });
+      }, { threshold: .5 });
+      heroObs.observe(document.getElementById('hero'));
+    }
+
+    // ── Typewriter on hero h1 em ──
+    if (!prefersReducedMotion) {
+      const emEl = document.querySelector('#hero h1 em');
+      if (emEl) {
+        const text = emEl.textContent;
+        emEl.textContent = '';
+        emEl.style.borderRight = '2px solid var(--green)';
+        let i = 0;
+        setTimeout(() => {
+          const type = () => {
+            if (i < text.length) { emEl.textContent += text[i++]; setTimeout(type, 55); }
+            else { setTimeout(() => emEl.style.borderRight = 'none', 800); }
+          };
+          type();
+        }, 700);
+      }
+    }
+
+    // ── Smooth scroll with offset for fixed navbar ──
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (target) {
+          e.preventDefault();
+          const top = target.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
       });
     });
+
+    // ── Step numbers count-up on scroll ──
+    if (!prefersReducedMotion) {
+      const stepNumbers = document.querySelectorAll('.step-number');
+      const stepObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.textContent);
+            let cur = 0;
+            const inc = () => { cur++; el.textContent = cur; if (cur < target) setTimeout(inc, 120); };
+            inc();
+            stepObs.unobserve(el);
+          }
+        });
+      }, { threshold: .8 });
+      stepNumbers.forEach(n => stepObs.observe(n));
+    }
+
+    // ── Patho card stagger on scroll ──
+    if (!prefersReducedMotion) {
+      const pathoCards = document.querySelectorAll('.patho-card');
+      const pathoObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const cards = entry.target.querySelectorAll ? [entry.target] : [];
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateX(0)';
+            pathoObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .15 });
+      pathoCards.forEach((c, i) => {
+        c.style.opacity = '0';
+        c.style.transform = 'translateX(-18px)';
+        c.style.transition = `opacity .45s ${i * 60}ms ease, transform .45s ${i * 60}ms ease`;
+        pathoObs.observe(c);
+      });
+    }
   </script>
+
+  <style>
+    /* ── Custom cursor ── */
+    @media (pointer: fine) {
+      body { cursor: none; }
+      a, button, [role="button"] { cursor: none; }
+    }
+    /* ── Hero content z-index above canvas ── */
+    #hero .hero-inner { position: relative; z-index: 1; }
+    #hero .hero-blob, #hero .hero-blob-2 { z-index: 0; }
+    /* ── Typewriter cursor blink ── */
+    @keyframes blink { 0%,100%{border-color:var(--green)} 50%{border-color:transparent} }
+    #hero h1 em { border-right: 2px solid var(--green); animation: blink .7s step-end infinite; }
+    /* ── Floating cards above canvas ── */
+    .hero-floating-card { z-index: 2; }
+    .hero-card { z-index: 2; }
+  </style>
 </body>
 </html>
