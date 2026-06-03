@@ -975,12 +975,400 @@
       .footer-top { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; }
       .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .btn-doctolib-hero { width: 100%; justify-content: center; }
+    }
+
+    /* ── Scroll Progress Bar ── */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green) 0%, var(--gold) 100%);
+      z-index: 200;
+      width: 0%;
+      transition: width .1s linear;
+    }
+
+    /* ── Doctolib Button ── */
+    .btn-doctolib {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: #00a6ad;
+      color: #fff;
+      padding: .6rem 1.4rem;
+      border-radius: 50px;
+      font-size: .88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      border: none;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-doctolib:hover {
+      background: #008a91;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0,166,173,.35);
+    }
+    .btn-doctolib svg { width: 18px; height: 18px; fill: #fff; flex-shrink: 0; }
+    .btn-doctolib::after { display: none !important; }
+
+    .btn-doctolib-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      background: #00a6ad;
+      color: #fff;
+      padding: .9rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-doctolib-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .btn-doctolib-hero:hover {
+      background: #008a91;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,166,173,.4);
+    }
+    .btn-doctolib-hero svg { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
+    .btn-doctolib-hero .pulse-dot {
+      width: 8px; height: 8px;
+      background: #7fffb0;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse-anim 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse-anim {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: .7; }
+    }
+
+    .btn-tarif-doctolib {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: #00a6ad;
+      color: #fff;
+      padding: .85rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      border: none;
+      text-decoration: none;
+    }
+    .btn-tarif-doctolib:hover {
+      background: #008a91;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,166,173,.35);
+    }
+    .tarif-card.featured .btn-tarif-doctolib {
+      background: #fff;
+      color: #00a6ad;
+    }
+    .tarif-card.featured .btn-tarif-doctolib:hover {
+      background: #e0f7f8;
+    }
+
+    /* ── Floating Doctolib Button ── */
+    #floating-rdv {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .75rem;
+    }
+    .floating-rdv-btn {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      background: #00a6ad;
+      color: #fff;
+      padding: .9rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: .9rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(0,166,173,.45);
+      transition: all .3s cubic-bezier(.34,1.56,.64,1);
+      transform: translateY(0);
+    }
+    .floating-rdv-btn:hover {
+      background: #008a91;
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 40px rgba(0,166,173,.55);
+    }
+    .floating-rdv-btn svg { width: 20px; height: 20px; fill: #fff; flex-shrink: 0; }
+    .floating-rdv-btn .f-pulse {
+      width: 9px; height: 9px;
+      background: #7fffb0;
+      border-radius: 50%;
+      animation: pulse-anim 1.8s ease-in-out infinite;
+    }
+    #floating-rdv.hidden { opacity: 0; pointer-events: none; }
+
+    /* ── Doctolib Section Banner ── */
+    .doctolib-banner {
+      background: linear-gradient(135deg, #00a6ad 0%, #007e84 100%);
+      border-radius: 20px;
+      padding: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .doctolib-banner::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,.07);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .doctolib-banner::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: -40px;
+      width: 160px; height: 160px;
+      background: rgba(255,255,255,.05);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .doctolib-banner-text { position: relative; z-index: 1; }
+    .doctolib-banner-text h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: .5rem;
+    }
+    .doctolib-banner-text p { color: rgba(255,255,255,.8); font-size: .95rem; }
+    .doctolib-banner-actions {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      align-items: flex-end;
+      position: relative;
+      z-index: 1;
+    }
+    .btn-doctolib-large {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      background: #fff;
+      color: #00a6ad;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .25s;
+      white-space: nowrap;
+    }
+    .btn-doctolib-large:hover {
+      background: #e0f7f8;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    }
+    .btn-doctolib-large svg { width: 22px; height: 22px; fill: #00a6ad; }
+    .doctolib-alt-contact {
+      color: rgba(255,255,255,.75);
+      font-size: .82rem;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .doctolib-alt-contact a { color: #fff; font-weight: 600; text-decoration: underline; }
+    .doctolib-alt-contact svg { width: 14px; height: 14px; stroke: rgba(255,255,255,.75); fill: none; }
+
+    /* ── Keyframe Animations ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-32px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(32px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(.88); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+    @keyframes blob-move {
+      0%, 100% { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; transform: rotate(0deg) scale(1); }
+      33%       { border-radius: 40% 60% 30% 70% / 60% 40% 50% 40%; transform: rotate(60deg) scale(1.05); }
+      66%       { border-radius: 70% 30% 60% 40% / 40% 50% 60% 50%; transform: rotate(120deg) scale(.95); }
+    }
+    @keyframes shimmer {
+      from { background-position: -200% center; }
+      to   { background-position: 200% center; }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Hero Enhancements ── */
+    .hero-blob {
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(74,124,89,.13) 0%, transparent 70%);
+      animation: blob-move 14s ease-in-out infinite;
+      top: -80px; right: -80px;
+      pointer-events: none;
+    }
+    .hero-blob-2 {
+      position: absolute;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(201,168,76,.1) 0%, transparent 70%);
+      animation: blob-move 18s ease-in-out infinite reverse;
+      bottom: -40px; left: -40px;
+      pointer-events: none;
+    }
+    .hero-content { animation: fadeInLeft .9s ease both; }
+    .hero-visual { animation: fadeInRight .9s .2s ease both; }
+    .hero-floating-card-1 { animation: float 5s ease-in-out infinite; }
+    .hero-floating-card-2 { animation: float 6s 1.5s ease-in-out infinite; }
+
+    /* ── Animated Stats ── */
+    .hero-stat strong {
+      background: linear-gradient(90deg, var(--charcoal) 0%, var(--green) 50%, var(--charcoal) 100%);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Animated Section Headers ── */
+    .reveal { opacity: 0; }
+    .reveal.visible { animation: fadeInUp .7s ease forwards; }
+    .reveal-left { opacity: 0; }
+    .reveal-left.visible { animation: fadeInLeft .7s ease forwards; }
+    .reveal-right { opacity: 0; }
+    .reveal-right.visible { animation: fadeInRight .7s ease forwards; }
+    .reveal-scale { opacity: 0; }
+    .reveal-scale.visible { animation: scaleIn .6s ease forwards; }
+
+    /* ── Technique Card Enhanced ── */
+    .technique-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .technique-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green) 0%, var(--gold) 100%);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s ease;
+    }
+    .technique-card:hover::before { transform: scaleX(1); }
+
+    /* ── Pop Card Enhanced ── */
+    .pop-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .pop-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(74,124,89,.04) 0%, transparent 60%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .pop-card:hover::after { opacity: 1; }
+
+    /* ── Step Numbers Pulse on Hover ── */
+    .step-card:hover .step-number {
+      animation: pulse-anim .5s ease;
+      background: var(--gold);
+    }
+
+    /* ── Patho Card Smooth Left border ── */
+    .patho-card {
+      border-left: 3px solid transparent;
+      background-image: linear-gradient(var(--cream), var(--cream)), linear-gradient(180deg, var(--green), var(--gold));
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      border-left: 3px solid var(--green);
+    }
+
+    /* ── Ripple on Buttons ── */
+    .btn-primary, .btn-doctolib-hero, .btn-doctolib-large, .floating-rdv-btn {
+      position: relative;
+      overflow: hidden;
+    }
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple-anim .6s linear;
+      background-color: rgba(255,255,255,.35);
+      pointer-events: none;
+    }
+    @keyframes ripple-anim {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    @media (max-width: 640px) {
+      .doctolib-banner { padding: 2rem 1.5rem; }
+      .doctolib-banner-actions { align-items: stretch; }
+      .btn-doctolib-large { justify-content: center; }
+      #floating-rdv { bottom: 1.25rem; right: 1.25rem; }
+      .floating-rdv-btn span { display: none; }
+      .floating-rdv-btn { padding: .9rem 1rem; border-radius: 50%; }
     }
   </style>
 </head>
 <body>
 
+  <div id="scroll-progress" role="progressbar" aria-label="Progression de lecture" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
   <a href="#main" class="skip-link">Aller au contenu principal</a>
+
+  <!-- ══ FLOATING RDV ══ -->
+  <div id="floating-rdv" class="hidden" aria-label="Prendre rendez-vous sur Doctolib">
+    <a href="https://www.doctolib.fr/osteopathe/nimes/maxime-vaillant" target="_blank" rel="noopener" class="floating-rdv-btn" aria-label="Prendre rendez-vous en ligne sur Doctolib">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      <span>Prendre RDV</span>
+      <div class="f-pulse"></div>
+    </a>
+  </div>
 
   <!-- ══ NAVBAR ══ -->
   <nav id="navbar" role="navigation" aria-label="Navigation principale">
@@ -1000,7 +1388,12 @@
         <li><a href="#pathologies">Pathologies</a></li>
         <li><a href="#populations">Patients</a></li>
         <li><a href="#tarifs">Tarifs</a></li>
-        <li><a href="#contact" class="btn-rdv">Prendre RDV</a></li>
+        <li>
+          <a href="https://www.doctolib.fr/osteopathe/nimes/maxime-vaillant" target="_blank" rel="noopener" class="btn-doctolib" aria-label="Prendre rendez-vous sur Doctolib">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Prendre RDV
+          </a>
+        </li>
       </ul>
       <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMenu(this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -1018,15 +1411,17 @@
     <a href="#populations" onclick="closeMobileMenu()">Nos patients</a>
     <a href="#deroulement" onclick="closeMobileMenu()">Déroulement</a>
     <a href="#tarifs" onclick="closeMobileMenu()">Tarifs</a>
-    <a href="#contact" class="btn-rdv-mob" onclick="closeMobileMenu()">Prendre rendez-vous</a>
+    <a href="https://www.doctolib.fr/osteopathe/nimes/maxime-vaillant" target="_blank" rel="noopener" class="btn-rdv-mob" style="background:#00a6ad;" onclick="closeMobileMenu()">
+      Prendre RDV sur Doctolib
+    </a>
   </div>
 
   <main id="main">
 
     <!-- ══ HERO ══ -->
     <section id="hero" aria-label="Présentation du cabinet">
-      <div class="hero-bg-circle hero-bg-circle-1" aria-hidden="true"></div>
-      <div class="hero-bg-circle hero-bg-circle-2" aria-hidden="true"></div>
+      <div class="hero-blob" aria-hidden="true"></div>
+      <div class="hero-blob-2" aria-hidden="true"></div>
       <div class="hero-inner">
         <div class="hero-content">
           <div class="hero-badge" aria-label="Ostéopathe diplômé d'État">
@@ -1038,9 +1433,10 @@
             Une approche globale et personnalisée du corps. Je prends en charge douleurs, tensions et dysfonctions pour vous accompagner vers un mieux-être durable.
           </p>
           <div class="hero-actions">
-            <a href="#contact" class="btn-primary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              Prendre rendez-vous
+            <a href="https://www.doctolib.fr/osteopathe/nimes/maxime-vaillant" target="_blank" rel="noopener" class="btn-doctolib-hero" aria-label="Prendre rendez-vous en ligne sur Doctolib">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              Prendre RDV sur Doctolib
+              <div class="pulse-dot" aria-hidden="true"></div>
             </a>
             <a href="#apropos" class="btn-secondary">
               Découvrir le cabinet
@@ -1048,16 +1444,16 @@
           </div>
           <div class="hero-stats" aria-label="Chiffres clés">
             <div class="hero-stat">
-              <strong>+1200</strong>
-              <span>Patients suivis</span>
+              <strong>Juillet</strong>
+              <span>Ouverture 2026</span>
             </div>
             <div class="hero-stat">
-              <strong>10 ans</strong>
-              <span>D'expérience</span>
+              <strong>ISOGM</strong>
+              <span>Diplômé 2026</span>
             </div>
             <div class="hero-stat">
-              <strong>4.9/5</strong>
-              <span>Satisfaction</span>
+              <strong>EBP</strong>
+              <span>Approche fondée</span>
             </div>
           </div>
         </div>
@@ -1350,7 +1746,7 @@
               <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Traitement personnalisé</li>
               <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Conseils postérieurs inclus</li>
             </ul>
-            <a href="#contact" class="btn-tarif" aria-label="Réserver une première consultation">Réserver</a>
+            <a href="https://www.doctolib.fr/osteopathe/nimes/maxime-vaillant" target="_blank" rel="noopener" class="btn-tarif-doctolib" aria-label="Réserver sur Doctolib">Réserver sur Doctolib</a>
           </article>
           <article class="tarif-card featured" aria-label="Offre recommandée">
             <div class="featured-badge" aria-hidden="true">Populaire</div>
@@ -1363,7 +1759,7 @@
               <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Bilan d'évolution</li>
               <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Conseils personnalisés</li>
             </ul>
-            <a href="#contact" class="btn-tarif" aria-label="Réserver une consultation de suivi">Réserver</a>
+            <a href="https://www.doctolib.fr/osteopathe/nimes/maxime-vaillant" target="_blank" rel="noopener" class="btn-tarif-doctolib" aria-label="Réserver sur Doctolib">Réserver sur Doctolib</a>
           </article>
           <article class="tarif-card">
             <h3>Nourrisson & enfant</h3>
@@ -1375,7 +1771,7 @@
               <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Explications aux parents</li>
               <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Conseils post-naissance</li>
             </ul>
-            <a href="#contact" class="btn-tarif" aria-label="Réserver pour un nourrisson ou un enfant">Réserver</a>
+            <a href="https://www.doctolib.fr/osteopathe/nimes/maxime-vaillant" target="_blank" rel="noopener" class="btn-tarif-doctolib" aria-label="Réserver sur Doctolib">Réserver sur Doctolib</a>
           </article>
         </div>
         <div class="tarif-info" aria-label="Informations sur le remboursement">
@@ -1448,51 +1844,46 @@
           </div>
 
           <div class="contact-form-wrap">
-            <h3>Demande de rendez-vous</h3>
-            <p>Remplissez ce formulaire et je vous confirmerai votre créneau sous 24h.</p>
-            <form id="rdvForm" novalidate aria-label="Formulaire de prise de rendez-vous">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="prenom">Prénom *</label>
-                  <input type="text" id="prenom" name="prenom" required autocomplete="given-name" placeholder="Marie" />
+            <h3>Réservez votre séance en ligne</h3>
+            <p>La prise de rendez-vous se fait directement via <strong>Doctolib</strong> — rapide, disponible 24h/24 et confirmation immédiate.</p>
+
+            <div style="background:var(--cream);border-radius:16px;padding:2rem;margin-bottom:1.5rem;border:2px solid var(--cream-d);">
+              <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;">
+                <div style="width:44px;height:44px;background:#00a6ad;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                 </div>
-                <div class="form-group">
-                  <label for="nom">Nom *</label>
-                  <input type="text" id="nom" name="nom" required autocomplete="family-name" placeholder="Dupont" />
+                <div>
+                  <strong style="display:block;font-size:.95rem;">Consultation disponible dès juillet 2026</strong>
+                  <span style="font-size:.8rem;color:var(--mid);">Créneaux en ligne • Confirmation immédiate</span>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" id="email" name="email" required autocomplete="email" placeholder="marie@exemple.fr" />
+              <a href="https://www.doctolib.fr/osteopathe/nimes/maxime-vaillant" target="_blank" rel="noopener"
+                 style="display:flex;align-items:center;justify-content:center;gap:.75rem;background:#00a6ad;color:#fff;padding:1rem;border-radius:12px;font-weight:800;font-size:1rem;text-decoration:none;transition:all .25s;margin-bottom:1rem;"
+                 onmouseover="this.style.background='#008a91'" onmouseout="this.style.background='#00a6ad'"
+                 aria-label="Prendre rendez-vous sur Doctolib">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                Prendre rendez-vous sur Doctolib
+              </a>
+              <p style="text-align:center;font-size:.8rem;color:var(--light);">Ou appelez le <a href="tel:+33651733813" style="color:var(--green);font-weight:600;">06 51 73 38 13</a></p>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:.75rem;">
+              <div style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--mid);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                Disponible 24h/24, 7j/7 pour réserver
               </div>
-              <div class="form-group">
-                <label for="tel">Téléphone</label>
-                <input type="tel" id="tel" name="tel" autocomplete="tel" placeholder="06 XX XX XX XX" />
+              <div style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--mid);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                Rappel automatique par SMS avant votre RDV
               </div>
-              <div class="form-group">
-                <label for="motif">Motif de consultation *</label>
-                <select id="motif" name="motif" required>
-                  <option value="" disabled selected>Sélectionner un motif…</option>
-                  <option value="douleur-dos">Douleur dorsale / lombalgie</option>
-                  <option value="cephalees">Céphalées / migraines</option>
-                  <option value="digestif">Troubles digestifs</option>
-                  <option value="nourrisson">Nourrisson / enfant</option>
-                  <option value="grossesse">Grossesse / post-partum</option>
-                  <option value="sport">Blessure sportive</option>
-                  <option value="preventif">Bilan préventif</option>
-                  <option value="autre">Autre</option>
-                </select>
+              <div style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--mid);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                Annulation ou modification en ligne jusqu'à 2h avant
               </div>
-              <div class="form-group">
-                <label for="message">Message complémentaire</label>
-                <textarea id="message" name="message" placeholder="Décrivez brièvement vos symptômes, vos disponibilités préférées…"></textarea>
+              <div style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--mid);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                Feuille de soin transmise après chaque consultation
               </div>
-              <button type="submit" class="btn-submit" id="submitBtn">
-                Envoyer ma demande
-              </button>
-            </form>
-            <div class="form-success" id="formSuccess" role="alert" aria-live="polite">
-              Votre demande a bien été envoyée ! Je vous contacterai dans les 24h pour confirmer votre rendez-vous.
             </div>
           </div>
         </div>
@@ -1564,13 +1955,28 @@
   </footer>
 
   <script>
-    // Navbar scroll effect
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ── Scroll Progress Bar ──
+    const progressBar = document.getElementById('scroll-progress');
+    const floatingRdv = document.getElementById('floating-rdv');
     const navbar = document.getElementById('navbar');
+
     window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 20);
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = pct + '%';
+      progressBar.setAttribute('aria-valuenow', Math.round(pct));
+
+      navbar.classList.toggle('scrolled', scrollTop > 20);
+
+      // Show/hide floating RDV after hero
+      const heroH = document.getElementById('hero').offsetHeight;
+      floatingRdv.classList.toggle('hidden', scrollTop < heroH * 0.7);
     }, { passive: true });
 
-    // Mobile menu toggle
+    // ── Mobile menu toggle ──
     function toggleMenu(btn) {
       const menu = document.getElementById('mobileMenu');
       const isOpen = menu.classList.toggle('open');
@@ -1590,10 +1996,10 @@
       document.body.style.overflow = '';
     }
 
-    // Smooth active nav links on scroll
+    // ── Active nav on scroll ──
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-    const observer = new IntersectionObserver((entries) => {
+    const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           navLinks.forEach(link => link.classList.remove('active'));
@@ -1602,38 +2008,23 @@
         }
       });
     }, { rootMargin: '-50% 0px -50% 0px' });
-    sections.forEach(s => observer.observe(s));
+    sections.forEach(s => sectionObserver.observe(s));
 
-    // Form submission
-    document.getElementById('rdvForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      const form = this;
-      const success = document.getElementById('formSuccess');
-
-      // Basic validation
-      const required = form.querySelectorAll('[required]');
-      let valid = true;
-      required.forEach(field => {
-        if (!field.value.trim()) {
-          field.style.borderColor = '#e53e3e';
-          valid = false;
-          field.addEventListener('input', () => field.style.borderColor = '', { once: true });
-        }
+    // ── Ripple effect ──
+    document.querySelectorAll('.btn-doctolib-hero, .btn-primary, .floating-rdv-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 700);
       });
-      if (!valid) return;
-
-      btn.disabled = true;
-      btn.textContent = 'Envoi en cours…';
-
-      setTimeout(() => {
-        form.style.display = 'none';
-        success.style.display = 'block';
-      }, 1200);
     });
 
-    // Scroll reveal
-    const revealEls = document.querySelectorAll('.technique-card, .patho-card, .pop-card, .temo-card, .step-card, .tarif-card');
+    // ── Scroll reveal with stagger ──
+    const revealEls = document.querySelectorAll('.technique-card, .patho-card, .pop-card, .step-card, .tarif-card');
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1644,14 +2035,59 @@
       });
     }, { threshold: 0.1 });
 
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!prefersReducedMotion) {
       revealEls.forEach((el, i) => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = `opacity .5s ease ${(i % 4) * 80}ms, transform .5s ease ${(i % 4) * 80}ms`;
+        el.style.transform = 'translateY(24px)';
+        el.style.transition = `opacity .55s cubic-bezier(.22,1,.36,1) ${(i % 4) * 90}ms, transform .55s cubic-bezier(.22,1,.36,1) ${(i % 4) * 90}ms`;
         revealObserver.observe(el);
       });
     }
+
+    // ── Section headers reveal ──
+    const headerEls = document.querySelectorAll('.section-header, .apropos-content, .apropos-visual, .contact-infos, .contact-form-wrap');
+    const headerObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting && !prefersReducedMotion) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          headerObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    if (!prefersReducedMotion) {
+      headerEls.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1)';
+        headerObserver.observe(el);
+      });
+    }
+
+    // ── Parallax on hero blobs ──
+    if (!prefersReducedMotion) {
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        const b1 = document.querySelector('.hero-blob');
+        const b2 = document.querySelector('.hero-blob-2');
+        if (b1) b1.style.transform += ` translateY(${y * 0.12}px)`;
+        if (b2) b2.style.transform += ` translateY(${y * -0.08}px)`;
+      }, { passive: true });
+    }
+
+    // ── Cursor glow on technique cards ──
+    document.querySelectorAll('.technique-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+        const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+        card.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(74,124,89,.06) 0%, #fff 60%)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.background = '';
+      });
+    });
   </script>
 </body>
 </html>
