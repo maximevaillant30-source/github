@@ -1205,7 +1205,153 @@
     .doctolib-alt-contact a { color: #fff; font-weight: 600; text-decoration: underline; }
     .doctolib-alt-contact svg { width: 14px; height: 14px; stroke: rgba(255,255,255,.75); fill: none; }
 
-    /* ── Keyframe Animations ── */
+    /* ── Qui suis-je ── */
+    #quisuisje { background: var(--white); }
+    .quisuisje-grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .quisuisje-visual { position: relative; }
+    .quisuisje-img-wrap {
+      width: 100%;
+      aspect-ratio: 3/4;
+      max-height: 560px;
+      background: linear-gradient(160deg, var(--cream) 0%, var(--cream-d) 100%);
+      border-radius: 28px;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .quisuisje-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(74,124,89,.18) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .quisuisje-photo-placeholder {
+      width: 200px; height: 200px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-l) 100%);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .quisuisje-photo-placeholder svg { width: 90px; height: 90px; fill: rgba(255,255,255,.55); }
+    .quisuisje-badge {
+      position: absolute;
+      bottom: -16px; right: -16px;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 1.25rem 1.6rem;
+      box-shadow: 0 8px 32px rgba(44,44,44,.12);
+      text-align: center;
+      min-width: 130px;
+    }
+    .quisuisje-badge strong { display: block; font-size: 1.6rem; font-weight: 800; color: var(--green); line-height: 1; }
+    .quisuisje-badge span { font-size: .78rem; color: var(--mid); line-height: 1.4; display: block; margin-top: .25rem; }
+    .quisuisje-sport-badge {
+      position: absolute;
+      top: 20px; left: -20px;
+      background: var(--charcoal);
+      color: #fff;
+      border-radius: 12px;
+      padding: .75rem 1.1rem;
+      font-size: .78rem;
+      font-weight: 700;
+      display: flex; align-items: center; gap: .5rem;
+      box-shadow: 0 4px 20px rgba(44,44,44,.2);
+    }
+    .quisuisje-sport-badge svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; flex-shrink: 0; }
+
+    .quisuisje-content {}
+    .quisuisje-intro {
+      font-size: 1.15rem;
+      color: var(--charcoal);
+      font-weight: 500;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .quisuisje-body {
+      font-size: .97rem;
+      color: var(--mid);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+    .quisuisje-quote {
+      background: linear-gradient(135deg, rgba(74,124,89,.07) 0%, rgba(201,168,76,.07) 100%);
+      border-left: 4px solid var(--green);
+      border-radius: 0 12px 12px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+    }
+    .quisuisje-quote p {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--charcoal);
+      line-height: 1.7;
+    }
+    .quisuisje-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+      margin: 1.75rem 0;
+    }
+    .qs-highlight {
+      background: var(--cream);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex; align-items: flex-start; gap: .75rem;
+    }
+    .qs-highlight-icon {
+      width: 34px; height: 34px;
+      background: rgba(74,124,89,.12);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .qs-highlight-icon svg { width: 16px; height: 16px; stroke: var(--green); fill: none; stroke-width: 2; }
+    .qs-highlight strong { display: block; font-size: .85rem; font-weight: 700; color: var(--charcoal); margin-bottom: .15rem; }
+    .qs-highlight span { font-size: .78rem; color: var(--mid); line-height: 1.4; }
+    .quisuisje-credo {
+      background: var(--charcoal);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      margin-top: 1.75rem;
+    }
+    .quisuisje-credo p {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.9);
+      line-height: 1.7;
+    }
+    .quisuisje-credo strong { color: var(--gold); font-style: normal; }
+    .quisuisje-chips {
+      display: flex; flex-wrap: wrap; gap: .6rem;
+      margin-top: 1.75rem;
+    }
+    .qs-chip {
+      display: flex; align-items: center; gap: .4rem;
+      background: rgba(74,124,89,.1);
+      color: var(--green-d);
+      padding: .45rem .9rem;
+      border-radius: 50px;
+      font-size: .8rem;
+      font-weight: 600;
+    }
+    .qs-chip svg { width: 13px; height: 13px; fill: currentColor; }
+    @media (max-width: 960px) {
+      .quisuisje-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .quisuisje-visual { max-width: 420px; }
+      .quisuisje-sport-badge { left: -8px; }
+    }
+    @media (max-width: 560px) {
+      .quisuisje-highlights { grid-template-columns: 1fr; }
+      .quisuisje-badge { right: 0; bottom: -12px; }
+    }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(32px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -1383,7 +1529,7 @@
         </div>
       </a>
       <ul class="nav-links" aria-label="Liens de navigation">
-        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#apropos">Qui suis-je</a></li>
         <li><a href="#techniques">Techniques</a></li>
         <li><a href="#pathologies">Pathologies</a></li>
         <li><a href="#populations">Patients</a></li>
@@ -1405,7 +1551,7 @@
 
   <!-- Mobile Menu -->
   <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="Menu mobile">
-    <a href="#apropos" onclick="closeMobileMenu()">À propos</a>
+    <a href="#apropos" onclick="closeMobileMenu()">Qui suis-je ?</a>
     <a href="#techniques" onclick="closeMobileMenu()">Techniques</a>
     <a href="#pathologies" onclick="closeMobileMenu()">Pathologies traitées</a>
     <a href="#populations" onclick="closeMobileMenu()">Nos patients</a>
@@ -1495,55 +1641,124 @@
       </div>
     </section>
 
-    <!-- ══ À PROPOS ══ -->
-    <section id="apropos" aria-labelledby="apropos-title">
+    <!-- ══ QUI SUIS-JE ══ -->
+    <section id="apropos" aria-labelledby="quisuisje-title">
       <div class="section-inner">
-        <div class="apropos-grid">
-          <div class="apropos-visual">
-            <div class="apropos-img-wrap" aria-label="Photo de l'ostéopathe">
-              <div class="apropos-img-placeholder" aria-hidden="true">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <div class="quisuisje-grid">
+
+          <!-- Visuel gauche -->
+          <div class="quisuisje-visual">
+            <div class="quisuisje-sport-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Spécialiste du sport
+            </div>
+            <div class="quisuisje-img-wrap" aria-label="Photo de Maxime Vaillant, ostéopathe">
+              <div class="quisuisje-photo-placeholder" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
               </div>
             </div>
-            <div class="apropos-badge-card" aria-label="Diplômé en 2025">
+            <div class="quisuisje-badge" aria-label="Diplômé ISOGM 2026">
               <strong>2026</strong>
               <span>Diplômé<br />ISOGM</span>
             </div>
           </div>
-          <div class="apropos-content">
-            <p class="section-label">À propos</p>
-            <h2 id="apropos-title">Maxime Vaillant,<br /><em style="font-style:italic; color:var(--green)">Ostéopathe D.O.</em></h2>
-            <p class="apropos-text">
-              Diplômé de l'Institut Supérieur d'Ostéopathie du Grand Montpellier (ISOGM), j'ouvre mon cabinet à Nîmes le 1er juillet 2026 avec une conviction profonde : chaque corps possède les ressources pour se rééquilibrer, à condition d'être écouté dans sa globalité.
+
+          <!-- Contenu droit -->
+          <div class="quisuisje-content">
+            <p class="section-label">Qui suis-je ?</p>
+            <h2 id="quisuisje-title">Maxime Vaillant,<br /><em style="font-style:italic;color:var(--green)">Ostéopathe à Nîmes</em></h2>
+
+            <p class="quisuisje-intro">
+              Je suis Maxime Vaillant, ostéopathe à Nîmes, jeune diplômé de l'ISOGM (Institut Supérieur d'Ostéopathie du Grand Montpellier).
             </p>
-            <p class="apropos-text">
-              Mon approche prend en compte tous les aspects de la personne — fonctionnel, psycho-émotionnel, viscéral et structurel — pour une prise en charge véritablement globale. J'adapte chaque séance à votre histoire, votre mode de vie et vos objectifs. Passionné par l'ostéopathie du sport, j'ai consacré mon mémoire de fin d'études à ce domaine et continue de me former pour accompagner au mieux les sportifs de tous niveaux.
+
+            <p class="quisuisje-body">
+              Depuis toujours, j'ai été passionné par le mouvement, le corps humain et le sport. Une passion qui m'a naturellement conduit vers l'ostéopathie, et vers une pratique centrée sur la personne plutôt que sur le symptôme.
             </p>
-            <ul class="apropos-list" aria-label="Points forts">
-              <li>
-                <span class="check-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-                <span>Approche globale : structurelle, viscérale, psycho-émotionnelle</span>
-              </li>
-              <li>
-                <span class="check-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-                <span>Mémoire de fin d'études spécialisé en ostéopathie du sport</span>
-              </li>
-              <li>
-                <span class="check-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-                <span>Formation continue en ostéopathie sportive</span>
-              </li>
-              <li>
-                <span class="check-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-                <span>Consultation sur rendez-vous, suivi personnalisé inclus</span>
-              </li>
-            </ul>
-            <div class="diplomes-row" aria-label="Diplômes et formations">
-              <span class="diplome-chip">D.O. — ISOGM Montpellier</span>
-              <span class="diplome-chip">Ostéopathie du sport</span>
-              <span class="diplome-chip">Approche psycho-émotionnelle</span>
-              <span class="diplome-chip">Ostéopathie viscérale</span>
+
+            <p class="quisuisje-body">
+              À mon cabinet de Nîmes, j'exerce au sein d'une structure pluridisciplinaire aux côtés de kinésithérapeutes spécialisés dans le sport, dont certains collaborent avec le <strong>Rugby Club de Nîmes</strong> et le <strong>Nîmes Olympique</strong>. Cet environnement stimulant me permet d'allier rigueur clinique et culture sportive au quotidien.
+            </p>
+
+            <p class="quisuisje-body">
+              Je me forme en continu et lis régulièrement la littérature scientifique en ostéopathie et en sciences du sport pour vous accompagner avec honnêteté et exigence.
+            </p>
+
+            <div class="quisuisje-quote">
+              <p>Pour mon mémoire de fin d'études, j'ai travaillé directement avec des sportifs amateurs afin de comparer l'efficacité de deux approches ostéopathiques sur la mobilité lombaire — une façon concrète de mettre la recherche au service du patient.</p>
+            </div>
+
+            <p class="quisuisje-body">
+              Pratiquant moi-même la course à pied et les disciplines de type <strong>Hyrox</strong>, je me suis naturellement orienté vers une spécialisation en ostéopathie du sport, que je poursuis activement en formation post-graduée.
+            </p>
+
+            <div class="quisuisje-highlights" aria-label="Points clés">
+              <div class="qs-highlight">
+                <div class="qs-highlight-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div>
+                  <strong>Structure pluridisciplinaire</strong>
+                  <span>Kiné sport, RC Nîmes, Nîmes Olympique</span>
+                </div>
+              </div>
+              <div class="qs-highlight">
+                <div class="qs-highlight-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <div>
+                  <strong>Approche EBP</strong>
+                  <span>Littérature scientifique & données probantes</span>
+                </div>
+              </div>
+              <div class="qs-highlight">
+                <div class="qs-highlight-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                </div>
+                <div>
+                  <strong>Mémoire de recherche</strong>
+                  <span>Mobilité lombaire chez le sportif amateur</span>
+                </div>
+              </div>
+              <div class="qs-highlight">
+                <div class="qs-highlight-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <div>
+                  <strong>Sportif lui-même</strong>
+                  <span>Course à pied, Hyrox, formation continue</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="quisuisje-credo" aria-label="Mon credo">
+              <p><strong>Mon credo :</strong> comprendre ce que vous vivez, agir avec précision, et vous donner les clés pour avancer par vous-même.</p>
+            </div>
+
+            <div class="quisuisje-chips" aria-label="Spécialités">
+              <span class="qs-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                D.O. — ISOGM Montpellier
+              </span>
+              <span class="qs-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                Ostéopathie du sport
+              </span>
+              <span class="qs-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                Approche EBP
+              </span>
+              <span class="qs-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                Viscéral & structurel
+              </span>
+              <span class="qs-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                Formation post-graduée
+              </span>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -1908,7 +2123,7 @@
         <div class="footer-col">
           <h4>Navigation</h4>
           <ul>
-            <li><a href="#apropos">À propos</a></li>
+            <li><a href="#apropos">Qui suis-je</a></li>
             <li><a href="#techniques">Techniques</a></li>
             <li><a href="#pathologies">Pathologies</a></li>
             <li><a href="#populations">Nos patients</a></li>
