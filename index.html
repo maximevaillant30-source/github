@@ -607,58 +607,6 @@
     }
     .pop-card p { font-size: .85rem; color: var(--mid); line-height: 1.6; }
 
-    /* ── Témoignages ── */
-    #temoignages { background: var(--charcoal); }
-    #temoignages .section-label { color: var(--gold); }
-    #temoignages h2 { color: var(--white); }
-    #temoignages .section-lead { color: rgba(255,255,255,.65); }
-    .temoignages-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    .temo-card {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: var(--radius);
-      padding: 2rem;
-      transition: var(--transition);
-    }
-    .temo-card:hover {
-      background: rgba(255,255,255,.08);
-      border-color: rgba(201,168,76,.3);
-    }
-    .temo-stars {
-      display: flex;
-      gap: .25rem;
-      margin-bottom: 1rem;
-    }
-    .temo-stars svg { width: 16px; height: 16px; fill: var(--gold); }
-    .temo-text {
-      font-size: .95rem;
-      color: rgba(255,255,255,.8);
-      line-height: 1.7;
-      font-style: italic;
-      font-family: 'Lora', serif;
-      margin-bottom: 1.25rem;
-    }
-    .temo-author {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-    }
-    .temo-avatar {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--green) 0%, var(--green-l) 100%);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700;
-      font-size: .85rem;
-      color: #fff;
-      flex-shrink: 0;
-    }
-    .temo-author-info strong { display: block; font-size: .88rem; color: rgba(255,255,255,.9); font-weight: 600; }
-    .temo-author-info span { font-size: .78rem; color: rgba(255,255,255,.45); }
 
     /* ── Déroulement ── */
     #deroulement { background: var(--white); }
@@ -1007,7 +955,6 @@
       .apropos-visual { max-width: 400px; }
       .techniques-grid { grid-template-columns: 1fr 1fr; }
       .pop-grid { grid-template-columns: 1fr 1fr; }
-      .temoignages-grid { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: 1fr 1fr; }
       .steps-grid::before { display: none; }
       .tarifs-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
@@ -1225,15 +1172,15 @@
             <div class="tc-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
             </div>
-            <h3>Ostéopathie crânio-sacrée</h3>
-            <p>Travail délicat sur les os du crâne et le sacrum pour libérer les tensions profondes du système nerveux central et restaurer les rythmes vitaux.</p>
+            <h3>Approche crânienne (EBP)</h3>
+            <p>Inspirée des techniques crâniennes, mon approche s'appuie sur les données probantes actuelles (EBP) : travail sur les tensions musculo-squelettiques de la sphère crânienne et cervicale, sans recours aux modèles non validés scientifiquement.</p>
           </article>
           <article class="technique-card">
             <div class="tc-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
             </div>
-            <h3>Techniques myofasciales</h3>
-            <p>Libération des tensions musculaires et des fascias (enveloppes tissulaires). Technique douce et profonde, idéale pour les douleurs chroniques.</p>
+            <h3>Techniques des tissus mous (EBP)</h3>
+            <p>Mobilisation des muscles, tendons et tissus conjonctifs selon les données probantes actuelles. Ces techniques neuro-musculaires agissent sur la sensibilisation périphérique et centrale, avec un effet démontré sur la douleur et la mobilité.</p>
           </article>
           <article class="technique-card">
             <div class="tc-icon" aria-hidden="true">
@@ -1350,69 +1297,6 @@
       </div>
     </section>
 
-    <!-- ══ TÉMOIGNAGES ══ -->
-    <section id="temoignages" aria-labelledby="temoignages-title">
-      <div class="section-inner">
-        <div class="section-header centered">
-          <p class="section-label">Témoignages</p>
-          <h2 id="temoignages-title">Ce que disent<br />mes patients</h2>
-          <p class="section-lead">Plus de 180 avis vérifiés. La satisfaction de mes patients est ma plus belle récompense.</p>
-        </div>
-        <div class="temoignages-grid">
-          <article class="temo-card">
-            <div class="temo-stars" aria-label="Note 5 sur 5">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <p class="temo-text">"Souffrant de lombalgies chroniques depuis 3 ans, j'ai trouvé un soulagement durable après seulement 3 séances. Marie est à l'écoute, professionnelle et ses mains sont magiques !"</p>
-            <div class="temo-author">
-              <div class="temo-avatar" aria-hidden="true">SB</div>
-              <div class="temo-author-info">
-                <strong>Sophie B.</strong>
-                <span>Patiente depuis 2022</span>
-              </div>
-            </div>
-          </article>
-          <article class="temo-card">
-            <div class="temo-stars" aria-label="Note 5 sur 5">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <p class="temo-text">"J'ai emmené mon bébé de 2 mois pour des coliques et un torticolis. Résultat spectaculaire dès la première séance. Je recommande vivement, c'est une praticienne remarquable."</p>
-            <div class="temo-author">
-              <div class="temo-avatar" aria-hidden="true">CL</div>
-              <div class="temo-author-info">
-                <strong>Camille L.</strong>
-                <span>Maman, patiente depuis 2023</span>
-              </div>
-            </div>
-          </article>
-          <article class="temo-card">
-            <div class="temo-stars" aria-label="Note 5 sur 5">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <p class="temo-text">"Coureur de marathon, je consulte régulièrement Marie pour prévenir les blessures. Son expertise en ostéopathie sportive est impressionnante. Jamais blessé depuis 2 saisons !"</p>
-            <div class="temo-author">
-              <div class="temo-avatar" aria-hidden="true">TD</div>
-              <div class="temo-author-info">
-                <strong>Thomas D.</strong>
-                <span>Sportif amateur, patient depuis 2021</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
 
     <!-- ══ DÉROULEMENT ══ -->
     <section id="deroulement" aria-labelledby="deroulement-title">
