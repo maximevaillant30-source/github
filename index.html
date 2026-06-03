@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cabinet d'Ostéopathie | Soins Personnalisés & Naturels</title>
+  <meta name="description" content="Cabinet d'ostéopathie – consultations pour adultes, enfants, sportifs et femmes enceintes. Prise en charge globale, approche douce et personnalisée." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:   #4a7c59;
+      --green-l: #5e9a6f;
+      --green-d: #365c42;
+      --cream:   #f8f4ef;
+      --cream-d: #efe8de;
+      --charcoal:#2c2c2c;
+      --mid:     #5a5a5a;
+      --light:   #8a8a8a;
+      --gold:    #c9a84c;
+      --white:   #ffffff;
+      --radius:  12px;
+      --shadow:  0 4px 24px rgba(44,44,44,.08);
+      --shadow-hover: 0 8px 32px rgba(44,44,44,.14);
+      --transition: all .25s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Figtree', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--charcoal);
+      background: var(--white);
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Skip Link ── */
+    .skip-link {
+      position: absolute;
+      top: -9999px; left: 1rem;
+      background: var(--green);
+      color: #fff;
+      padding: .5rem 1rem;
+      border-radius: 0 0 var(--radius) var(--radius);
+      font-weight: 600;
+      z-index: 9999;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── Navbar ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(248,244,239,.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    #navbar.scrolled {
+      border-bottom-color: var(--cream-d);
+      box-shadow: 0 2px 16px rgba(44,44,44,.07);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .nav-logo-icon {
+      width: 40px; height: 40px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-logo-icon svg { width: 22px; height: 22px; fill: #fff; }
+    .nav-logo-text { line-height: 1.2; }
+    .nav-logo-text strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      letter-spacing: -.01em;
+    }
+    .nav-logo-text span {
+      font-size: .75rem;
+      color: var(--mid);
+      font-weight: 400;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--mid);
+      transition: var(--transition);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0; right: 100%;
+      height: 2px;
+      background: var(--green);
+      transition: right .25s ease;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-links a:hover::after { right: 0; }
+    .btn-rdv {
+      background: var(--green);
+      color: #fff !important;
+      padding: .6rem 1.4rem;
+      border-radius: 50px;
+      font-size: .88rem !important;
+      font-weight: 600 !important;
+      transition: background .25s, transform .2s !important;
+      cursor: pointer;
+    }
+    .btn-rdv:hover { background: var(--green-d) !important; transform: translateY(-1px); }
+    .btn-rdv::after { display: none !important; }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 2px solid var(--green);
+      border-radius: 8px;
+      cursor: pointer;
+      padding: .4rem .5rem;
+      color: var(--green);
+    }
+    .nav-toggle svg { width: 22px; height: 22px; display: block; }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0; right: 0; bottom: 0;
+      background: var(--cream);
+      z-index: 99;
+      padding: 2rem;
+      flex-direction: column;
+      gap: 1.5rem;
+      overflow-y: auto;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      padding: .75rem 0;
+      border-bottom: 1px solid var(--cream-d);
+      transition: color .2s;
+    }
+    .mobile-menu a:hover { color: var(--green); }
+    .mobile-menu .btn-rdv-mob {
+      margin-top: 1rem;
+      background: var(--green);
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: var(--cream);
+      padding: 7rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-bg-circle-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(74,124,89,.12) 0%, transparent 70%);
+      top: -100px; right: -100px;
+    }
+    .hero-bg-circle-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(201,168,76,.08) 0%, transparent 70%);
+      bottom: -80px; left: -80px;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(74,124,89,.1);
+      color: var(--green-d);
+      padding: .4rem 1rem;
+      border-radius: 50px;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge svg { width: 14px; height: 14px; }
+    h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--charcoal);
+      margin-bottom: 1.25rem;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--green);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .btn-primary {
+      background: var(--green);
+      color: #fff;
+      padding: .85rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: .95rem;
+      transition: var(--transition);
+      cursor: pointer;
+      border: 2px solid var(--green);
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .btn-primary:hover { background: var(--green-d); border-color: var(--green-d); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,124,89,.3); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--charcoal);
+      padding: .85rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: .95rem;
+      transition: var(--transition);
+      cursor: pointer;
+      border: 2px solid var(--charcoal);
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .btn-secondary:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+    }
+    .hero-stat strong {
+      display: block;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+    .hero-stat span {
+      font-size: .82rem;
+      color: var(--light);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .hero-visual {
+      position: relative;
+    }
+    .hero-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .hero-card-image {
+      width: 100%;
+      height: 320px;
+      background: linear-gradient(135deg, #4a7c59 0%, #5e9a6f 50%, #8ab89a 100%);
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-card-image svg {
+      width: 120px; height: 120px;
+      fill: rgba(255,255,255,.35);
+    }
+    .hero-card-image-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,.4), transparent);
+    }
+    .hero-card-image-overlay p {
+      color: #fff;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: .95rem;
+    }
+    .hero-card-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hero-card-info-text strong { font-size: 1rem; font-weight: 700; }
+    .hero-card-info-text span { font-size: .82rem; color: var(--mid); display: block; }
+    .hero-tag {
+      background: rgba(74,124,89,.1);
+      color: var(--green-d);
+      padding: .4rem .9rem;
+      border-radius: 50px;
+      font-size: .78rem;
+      font-weight: 600;
+    }
+    .hero-floating-card {
+      position: absolute;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: .9rem 1.2rem;
+      box-shadow: 0 8px 32px rgba(44,44,44,.12);
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .hero-floating-card-1 {
+      top: -20px; left: -30px;
+    }
+    .hero-floating-card-2 {
+      bottom: -20px; right: -30px;
+    }
+    .hfc-icon {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .hfc-icon.green { background: rgba(74,124,89,.15); color: var(--green); }
+    .hfc-icon.gold { background: rgba(201,168,76,.15); color: var(--gold); }
+    .hfc-icon svg { width: 18px; height: 18px; }
+    .hfc-text strong { display: block; font-size: .82rem; font-weight: 700; }
+    .hfc-text span { font-size: .72rem; color: var(--light); }
+
+    /* ── Section shared ── */
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: .75rem;
+    }
+    h2 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 600;
+      color: var(--charcoal);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+    .section-lead {
+      font-size: 1.05rem;
+      color: var(--mid);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+    .section-header { margin-bottom: 3.5rem; }
+    .section-header.centered { text-align: center; }
+    .section-header.centered .section-lead { margin: 0 auto; }
+
+    /* ── À Propos ── */
+    #apropos { background: var(--white); }
+    .apropos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .apropos-visual {
+      position: relative;
+    }
+    .apropos-img-wrap {
+      width: 100%;
+      aspect-ratio: 3/4;
+      max-height: 520px;
+      background: linear-gradient(160deg, var(--cream) 0%, var(--cream-d) 100%);
+      border-radius: 24px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .apropos-img-placeholder {
+      width: 180px; height: 180px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-l) 100%);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .apropos-img-placeholder svg { width: 80px; height: 80px; fill: rgba(255,255,255,.6); }
+    .apropos-badge-card {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .apropos-badge-card strong { display: block; font-size: 1.8rem; font-weight: 700; color: var(--green); }
+    .apropos-badge-card span { font-size: .8rem; color: var(--mid); }
+    .apropos-content h2 { margin-bottom: 1.25rem; }
+    .apropos-text {
+      color: var(--mid);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    .apropos-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+    .apropos-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      padding: .6rem 0;
+      border-bottom: 1px solid var(--cream-d);
+      font-size: .95rem;
+    }
+    .apropos-list li:last-child { border-bottom: none; }
+    .check-icon {
+      width: 22px; height: 22px;
+      background: rgba(74,124,89,.12);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .check-icon svg { width: 12px; height: 12px; stroke: var(--green); fill: none; stroke-width: 2.5; }
+    .diplomes-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .diplome-chip {
+      background: var(--cream);
+      border: 1px solid var(--cream-d);
+      border-radius: 8px;
+      padding: .5rem 1rem;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--mid);
+    }
+
+    /* ── Techniques ── */
+    #techniques { background: var(--cream); }
+    .techniques-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .technique-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      cursor: default;
+      border: 2px solid transparent;
+    }
+    .technique-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(74,124,89,.2);
+    }
+    .tc-icon {
+      width: 52px; height: 52px;
+      background: rgba(74,124,89,.1);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .tc-icon svg { width: 26px; height: 26px; stroke: var(--green); fill: none; stroke-width: 1.6; }
+    .technique-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: .6rem;
+    }
+    .technique-card p {
+      font-size: .9rem;
+      color: var(--mid);
+      line-height: 1.65;
+    }
+
+    /* ── Pathologies ── */
+    #pathologies { background: var(--white); }
+    .patho-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .patho-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      border-left: 3px solid var(--green);
+      transition: var(--transition);
+    }
+    .patho-card:hover {
+      background: rgba(74,124,89,.08);
+      transform: translateX(3px);
+    }
+    .patho-card h4 {
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: .3rem;
+    }
+    .patho-card p {
+      font-size: .8rem;
+      color: var(--mid);
+      line-height: 1.5;
+    }
+    .patho-note {
+      margin-top: 2.5rem;
+      background: rgba(74,124,89,.07);
+      border: 1px solid rgba(74,124,89,.2);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .patho-note svg { width: 22px; height: 22px; stroke: var(--green); fill: none; flex-shrink: 0; margin-top: 2px; }
+    .patho-note p { font-size: .9rem; color: var(--mid); line-height: 1.6; }
+
+    /* ── Populations ── */
+    #populations { background: var(--cream); }
+    .pop-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .pop-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    .pop-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .pop-icon {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-l) 100%);
+      border-radius: 16px;
+      margin: 0 auto 1.25rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pop-icon svg { width: 30px; height: 30px; stroke: #fff; fill: none; stroke-width: 1.5; }
+    .pop-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: .5rem;
+    }
+    .pop-card p { font-size: .85rem; color: var(--mid); line-height: 1.6; }
+
+    /* ── Témoignages ── */
+    #temoignages { background: var(--charcoal); }
+    #temoignages .section-label { color: var(--gold); }
+    #temoignages h2 { color: var(--white); }
+    #temoignages .section-lead { color: rgba(255,255,255,.65); }
+    .temoignages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .temo-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: var(--transition);
+    }
+    .temo-card:hover {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(201,168,76,.3);
+    }
+    .temo-stars {
+      display: flex;
+      gap: .25rem;
+      margin-bottom: 1rem;
+    }
+    .temo-stars svg { width: 16px; height: 16px; fill: var(--gold); }
+    .temo-text {
+      font-size: .95rem;
+      color: rgba(255,255,255,.8);
+      line-height: 1.7;
+      font-style: italic;
+      font-family: 'Lora', serif;
+      margin-bottom: 1.25rem;
+    }
+    .temo-author {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .temo-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-l) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: .85rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .temo-author-info strong { display: block; font-size: .88rem; color: rgba(255,255,255,.9); font-weight: 600; }
+    .temo-author-info span { font-size: .78rem; color: rgba(255,255,255,.45); }
+
+    /* ── Déroulement ── */
+    #deroulement { background: var(--white); }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      position: relative;
+    }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: calc(12.5% + 24px);
+      right: calc(12.5% + 24px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--green) 0%, var(--cream-d) 100%);
+    }
+    .step-card { text-align: center; position: relative; }
+    .step-number {
+      width: 64px; height: 64px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 0 8px rgba(74,124,89,.12);
+    }
+    .step-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: .5rem;
+    }
+    .step-card p { font-size: .85rem; color: var(--mid); line-height: 1.6; }
+
+    /* ── Tarifs ── */
+    #tarifs { background: var(--cream); }
+    .tarifs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .tarif-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .tarif-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .tarif-card.featured {
+      background: var(--green);
+      color: #fff;
+    }
+    .tarif-card.featured .tarif-price,
+    .tarif-card.featured h3 { color: #fff; }
+    .tarif-card.featured .tarif-desc { color: rgba(255,255,255,.75); }
+    .tarif-card.featured .tarif-list li { color: rgba(255,255,255,.85); border-bottom-color: rgba(255,255,255,.15); }
+    .featured-badge {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: var(--gold);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: .3rem .7rem;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .tarif-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: .5rem;
+    }
+    .tarif-desc { font-size: .85rem; color: var(--mid); margin-bottom: 1.5rem; }
+    .tarif-price {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .tarif-price sup { font-size: 1rem; vertical-align: super; }
+    .tarif-price small { font-size: .85rem; font-weight: 400; color: var(--light); }
+    .tarif-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+    .tarif-list li {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .5rem 0;
+      border-bottom: 1px solid var(--cream-d);
+      font-size: .88rem;
+      color: var(--mid);
+    }
+    .tarif-list li svg { width: 16px; height: 16px; stroke: var(--green); fill: none; stroke-width: 2.5; flex-shrink: 0; }
+    .tarif-card.featured .tarif-list li svg { stroke: rgba(255,255,255,.8); }
+    .btn-tarif {
+      width: 100%;
+      padding: .85rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 2px solid var(--green);
+      text-align: center;
+      display: block;
+      color: var(--green);
+      background: transparent;
+    }
+    .btn-tarif:hover { background: var(--green); color: #fff; }
+    .tarif-card.featured .btn-tarif {
+      background: #fff;
+      color: var(--green);
+      border-color: #fff;
+    }
+    .tarif-card.featured .btn-tarif:hover {
+      background: var(--cream);
+    }
+    .tarif-info {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .tarif-info-item {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .85rem;
+      color: var(--mid);
+    }
+    .tarif-info-item svg { width: 18px; height: 18px; stroke: var(--green); fill: none; }
+
+    /* ── Contact / RDV ── */
+    #contact { background: var(--white); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-infos { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-info-item {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+    .ci-icon {
+      width: 48px; height: 48px;
+      background: rgba(74,124,89,.1);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ci-icon svg { width: 22px; height: 22px; stroke: var(--green); fill: none; stroke-width: 1.7; }
+    .ci-text strong { display: block; font-weight: 700; font-size: .9rem; margin-bottom: .25rem; }
+    .ci-text span, .ci-text a { font-size: .9rem; color: var(--mid); }
+    .ci-text a:hover { color: var(--green); text-decoration: underline; }
+    .map-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--cream);
+      border-radius: var(--radius);
+      margin-top: 1.5rem;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px dashed var(--cream-d);
+      color: var(--light);
+      font-size: .85rem;
+      gap: .5rem;
+    }
+    .map-placeholder svg { width: 20px; height: 20px; stroke: var(--light); fill: none; }
+    .contact-form-wrap h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: .5rem;
+    }
+    .contact-form-wrap p { font-size: .9rem; color: var(--mid); margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: .4rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: .8rem 1.1rem;
+      border: 2px solid var(--cream-d);
+      border-radius: 10px;
+      font-family: 'Figtree', sans-serif;
+      font-size: .95rem;
+      color: var(--charcoal);
+      background: var(--white);
+      transition: border-color .2s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(74,124,89,.12);
+    }
+    textarea { resize: vertical; min-height: 110px; }
+    .btn-submit {
+      width: 100%;
+      background: var(--green);
+      color: #fff;
+      padding: .95rem;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: .5rem;
+    }
+    .btn-submit:hover { background: var(--green-d); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,124,89,.3); }
+    .btn-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .form-success {
+      display: none;
+      background: rgba(74,124,89,.08);
+      border: 1px solid rgba(74,124,89,.3);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--green-d);
+      font-weight: 600;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,.65);
+      padding: 4rem 2rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand strong {
+      display: block;
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: .25rem;
+    }
+    .footer-brand p { font-size: .85rem; line-height: 1.7; max-width: 280px; margin-top: .75rem; }
+    .footer-logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: .5rem;
+    }
+    .footer-logo-badge .flb-icon {
+      width: 32px; height: 32px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .footer-logo-badge .flb-icon svg { width: 16px; height: 16px; fill: #fff; }
+    .footer-col h4 {
+      font-size: .82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: rgba(255,255,255,.9);
+      margin-bottom: 1.25rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
+    .footer-col ul li a {
+      font-size: .85rem;
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--green-l); }
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .6rem;
+      margin-bottom: .75rem;
+    }
+    .footer-contact-item svg { width: 16px; height: 16px; stroke: var(--green-l); fill: none; flex-shrink: 0; margin-top: 2px; }
+    .footer-contact-item span { font-size: .85rem; line-height: 1.5; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p { font-size: .8rem; }
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-bottom-links a { font-size: .8rem; transition: color .2s; }
+    .footer-bottom-links a:hover { color: var(--green-l); }
+
+    /* ── Accessibility ── */
+    :focus-visible {
+      outline: 3px solid var(--green);
+      outline-offset: 3px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .patho-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-visual { order: -1; max-width: 480px; margin: 0 auto; }
+      .hero-floating-card-1 { left: 0; }
+      .hero-floating-card-2 { right: 0; }
+      .apropos-grid { grid-template-columns: 1fr; }
+      .apropos-visual { max-width: 400px; }
+      .techniques-grid { grid-template-columns: 1fr 1fr; }
+      .pop-grid { grid-template-columns: 1fr 1fr; }
+      .temoignages-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .steps-grid::before { display: none; }
+      .tarifs-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; align-items: center; justify-content: center; }
+      section { padding: 3.5rem 1.25rem; }
+      .techniques-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .pop-grid { grid-template-columns: 1fr; }
+      .patho-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Aller au contenu principal</a>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav id="navbar" role="navigation" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="Accueil - Cabinet d'Ostéopathie">
+        <div class="nav-logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 3.54 2.29 6.53 5.47 7.59L12 22l1.53-5.41C16.71 15.53 19 12.54 19 9c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+        </div>
+        <div class="nav-logo-text">
+          <strong>Cabinet d'Ostéopathie</strong>
+          <span>Thérapie manuelle</span>
+        </div>
+      </a>
+      <ul class="nav-links" aria-label="Liens de navigation">
+        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#techniques">Techniques</a></li>
+        <li><a href="#pathologies">Pathologies</a></li>
+        <li><a href="#populations">Patients</a></li>
+        <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="#contact" class="btn-rdv">Prendre RDV</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMenu(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="Menu mobile">
+    <a href="#apropos" onclick="closeMobileMenu()">À propos</a>
+    <a href="#techniques" onclick="closeMobileMenu()">Techniques</a>
+    <a href="#pathologies" onclick="closeMobileMenu()">Pathologies traitées</a>
+    <a href="#populations" onclick="closeMobileMenu()">Nos patients</a>
+    <a href="#deroulement" onclick="closeMobileMenu()">Déroulement</a>
+    <a href="#tarifs" onclick="closeMobileMenu()">Tarifs</a>
+    <a href="#contact" class="btn-rdv-mob" onclick="closeMobileMenu()">Prendre rendez-vous</a>
+  </div>
+
+  <main id="main">
+
+    <!-- ══ HERO ══ -->
+    <section id="hero" aria-label="Présentation du cabinet">
+      <div class="hero-bg-circle hero-bg-circle-1" aria-hidden="true"></div>
+      <div class="hero-bg-circle hero-bg-circle-2" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge" aria-label="Ostéopathe diplômé d'État">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            Ostéopathe D.O. — Diplômé d'État
+          </div>
+          <h1>Retrouvez votre<br /><em>équilibre naturel</em><br />avec l'ostéopathie</h1>
+          <p class="hero-sub">
+            Une approche globale et personnalisée du corps. Je prends en charge douleurs, tensions et dysfonctions pour vous accompagner vers un mieux-être durable.
+          </p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Prendre rendez-vous
+            </a>
+            <a href="#apropos" class="btn-secondary">
+              Découvrir le cabinet
+            </a>
+          </div>
+          <div class="hero-stats" aria-label="Chiffres clés">
+            <div class="hero-stat">
+              <strong>+1200</strong>
+              <span>Patients suivis</span>
+            </div>
+            <div class="hero-stat">
+              <strong>10 ans</strong>
+              <span>D'expérience</span>
+            </div>
+            <div class="hero-stat">
+              <strong>4.9/5</strong>
+              <span>Satisfaction</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-floating-card hero-floating-card-1" aria-hidden="true">
+            <div class="hfc-icon green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <div class="hfc-text">
+              <strong>Approche globale</strong>
+              <span>Corps & esprit</span>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-image" aria-label="Illustration de soin ostéopathique">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="50" cy="35" rx="18" ry="22" fill="rgba(255,255,255,.4)"/><line x1="50" y1="57" x2="50" y2="80" stroke="rgba(255,255,255,.4)" stroke-width="5" stroke-linecap="round"/><line x1="50" y1="65" x2="35" y2="78" stroke="rgba(255,255,255,.4)" stroke-width="4" stroke-linecap="round"/><line x1="50" y1="65" x2="65" y2="78" stroke="rgba(255,255,255,.4)" stroke-width="4" stroke-linecap="round"/><line x1="50" y1="58" x2="32" y2="68" stroke="rgba(255,255,255,.4)" stroke-width="4" stroke-linecap="round"/><line x1="50" y1="58" x2="68" y2="68" stroke="rgba(255,255,255,.4)" stroke-width="4" stroke-linecap="round"/></svg>
+              <div class="hero-card-image-overlay">
+                <p>"Votre corps a la capacité naturelle de s'auto-guérir"</p>
+              </div>
+            </div>
+            <div class="hero-card-info">
+              <div class="hero-card-info-text">
+                <strong>Dr. Marie Lefèvre</strong>
+                <span>Ostéopathe D.O., spécialisée en thérapie cranio-sacrée</span>
+              </div>
+              <div class="hero-tag">Disponible</div>
+            </div>
+          </div>
+          <div class="hero-floating-card hero-floating-card-2" aria-hidden="true">
+            <div class="hfc-icon gold">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="hfc-text">
+              <strong>Note 4.9/5</strong>
+              <span>+180 avis vérifiés</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ À PROPOS ══ -->
+    <section id="apropos" aria-labelledby="apropos-title">
+      <div class="section-inner">
+        <div class="apropos-grid">
+          <div class="apropos-visual">
+            <div class="apropos-img-wrap" aria-label="Photo de l'ostéopathe">
+              <div class="apropos-img-placeholder" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              </div>
+            </div>
+            <div class="apropos-badge-card" aria-label="10 ans d'expérience">
+              <strong>10 ans</strong>
+              <span>d'expérience<br />clinique</span>
+            </div>
+          </div>
+          <div class="apropos-content">
+            <p class="section-label">À propos</p>
+            <h2 id="apropos-title">Marie Lefèvre,<br /><em style="font-style:italic; color:var(--green)">Ostéopathe D.O.</em></h2>
+            <p class="apropos-text">
+              Diplômée du Collège Ostéopathique Européen de Paris, j'exerce depuis 10 ans avec une passion pour la thérapie manuelle et une conviction profonde : chaque corps possède les ressources pour se rééquilibrer.
+            </p>
+            <p class="apropos-text">
+              Mon approche est globale et bienveillante. J'écoute, j'observe et j'adapte chaque séance à votre histoire, vos douleurs et vos objectifs. En tenant compte de votre mode de vie, je vous accompagne vers un mieux-être durable.
+            </p>
+            <ul class="apropos-list" aria-label="Points forts">
+              <li>
+                <span class="check-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>Consultation sur rendez-vous, sans délai excessif</span>
+              </li>
+              <li>
+                <span class="check-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>Cabinet accessible PMR au cœur de la ville</span>
+              </li>
+              <li>
+                <span class="check-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>Suivi personnalisé et conseils posturaux inclus</span>
+              </li>
+              <li>
+                <span class="check-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>Spécialisée nourrissons, femmes enceintes et sportifs</span>
+              </li>
+            </ul>
+            <div class="diplomes-row" aria-label="Diplômes et formations">
+              <span class="diplome-chip">D.O. — Paris</span>
+              <span class="diplome-chip">Thérapie crânio-sacrée</span>
+              <span class="diplome-chip">Ostéopathie pédiatrique</span>
+              <span class="diplome-chip">Formation sport</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TECHNIQUES ══ -->
+    <section id="techniques" aria-labelledby="techniques-title">
+      <div class="section-inner">
+        <div class="section-header centered">
+          <p class="section-label">Techniques utilisées</p>
+          <h2 id="techniques-title">Une prise en charge<br />complète et adaptée</h2>
+          <p class="section-lead">Chaque séance est unique. Je combine différentes techniques selon vos besoins et votre confort pour obtenir les meilleurs résultats.</p>
+        </div>
+        <div class="techniques-grid">
+          <article class="technique-card">
+            <div class="tc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+            </div>
+            <h3>Techniques structurelles</h3>
+            <p>Manipulations articulaires douces pour restaurer la mobilité des vertèbres et des articulations. Rapides, précises et sécurisées.</p>
+          </article>
+          <article class="technique-card">
+            <div class="tc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <h3>Ostéopathie crânio-sacrée</h3>
+            <p>Travail délicat sur les os du crâne et le sacrum pour libérer les tensions profondes du système nerveux central et restaurer les rythmes vitaux.</p>
+          </article>
+          <article class="technique-card">
+            <div class="tc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </div>
+            <h3>Techniques myofasciales</h3>
+            <p>Libération des tensions musculaires et des fascias (enveloppes tissulaires). Technique douce et profonde, idéale pour les douleurs chroniques.</p>
+          </article>
+          <article class="technique-card">
+            <div class="tc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><path d="M3 12s3-4 9-4 9 4 9 4-3 4-9 4-9-4-9-4z"/></svg>
+            </div>
+            <h3>Ostéopathie viscérale</h3>
+            <p>Approche des organes internes (foie, estomac, intestins…) pour libérer les tensions de leurs enveloppes et améliorer leur mobilité.</p>
+          </article>
+          <article class="technique-card">
+            <div class="tc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>Techniques fonctionnelles</h3>
+            <p>Méthodes indolores favorisant la mise en position de confort du corps pour lever les restrictions de mobilité sans contrainte.</p>
+          </article>
+          <article class="technique-card">
+            <div class="tc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <h3>Techniques énergétiques</h3>
+            <p>Techniques d'énergie musculaire (MET) et de contracté-relâché pour rééduquer la tonicité musculaire et améliorer l'amplitude articulaire.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ PATHOLOGIES ══ -->
+    <section id="pathologies" aria-labelledby="pathologies-title">
+      <div class="section-inner">
+        <div class="section-header">
+          <p class="section-label">Pathologies traitées</p>
+          <h2 id="pathologies-title">Quels troubles peut traiter<br />l'ostéopathie ?</h2>
+          <p class="section-lead">L'ostéopathie prend en charge un large spectre de plaintes fonctionnelles. Voici les motifs de consultation les plus courants.</p>
+        </div>
+        <div class="patho-grid" role="list">
+          <div class="patho-card" role="listitem">
+            <h4>Douleurs dorsales</h4>
+            <p>Lombalgie, dorsalgie, cervicalgie, sciatique, hernie discale</p>
+          </div>
+          <div class="patho-card" role="listitem">
+            <h4>Céphalées & migraines</h4>
+            <p>Maux de tête tensionnels, migraines, vertiges, acouphènes</p>
+          </div>
+          <div class="patho-card" role="listitem">
+            <h4>Troubles digestifs</h4>
+            <p>Colon irritable, reflux gastrique, constipation, ballonnements</p>
+          </div>
+          <div class="patho-card" role="listitem">
+            <h4>Douleurs articulaires</h4>
+            <p>Épaule, genou, cheville, hanche, poignet, coude</p>
+          </div>
+          <div class="patho-card" role="listitem">
+            <h4>Troubles du nourrisson</h4>
+            <p>Torticolis, plagiocéphalie, coliques, trouble du sommeil</p>
+          </div>
+          <div class="patho-card" role="listitem">
+            <h4>Grossesse & post-partum</h4>
+            <p>Douleurs de grossesse, préparation accouchement, récupération</p>
+          </div>
+          <div class="patho-card" role="listitem">
+            <h4>Blessures sportives</h4>
+            <p>Entorse, tendinite, périostite, syndrome de la bandelette</p>
+          </div>
+          <div class="patho-card" role="listitem">
+            <h4>Stress & fatigue</h4>
+            <p>Troubles du sommeil, fatigue chronique, anxiété somatisée</p>
+          </div>
+        </div>
+        <div class="patho-note" role="note" aria-label="Note importante">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p>L'ostéopathie est une thérapie complémentaire. En cas de douleur aiguë, de fièvre, ou de symptômes inhabituels, consultez d'abord votre médecin. Je travaille en coordination avec les autres professionnels de santé pour votre prise en charge.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ POPULATIONS ══ -->
+    <section id="populations" aria-labelledby="populations-title">
+      <div class="section-inner">
+        <div class="section-header centered">
+          <p class="section-label">Pour qui ?</p>
+          <h2 id="populations-title">L'ostéopathie pour<br />toute la famille</h2>
+          <p class="section-lead">De la naissance au troisième âge, l'ostéopathie s'adapte à chaque profil et chaque besoin.</p>
+        </div>
+        <div class="pop-grid">
+          <article class="pop-card">
+            <div class="pop-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M12 22V8m-4 4H4m16-4h-4l1 6m-9 0l1-6"/></svg>
+            </div>
+            <h3>Nourrissons</h3>
+            <p>Prise en charge douce dès la naissance pour traiter coliques, troubles du sommeil, torticolis ou plagiocéphalie positionnelle.</p>
+          </article>
+          <article class="pop-card">
+            <div class="pop-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>Enfants & adolescents</h3>
+            <p>Scoliose, troubles de la posture, douleurs de croissance, difficultés de concentration et bonne croissance musculo-squelettique.</p>
+          </article>
+          <article class="pop-card">
+            <div class="pop-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M3 21s1-3 4-4.5M21 21s-1-3-4-4.5M9 13h6"/></svg>
+            </div>
+            <h3>Femmes enceintes</h3>
+            <p>Soulagement des douleurs lombaires, pubalgies, préparation à l'accouchement et récupération post-partum en toute sécurité.</p>
+          </article>
+          <article class="pop-card">
+            <div class="pop-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3>Sportifs</h3>
+            <p>Prévention des blessures, amélioration des performances, récupération rapide après l'effort et suivi régulier de saison.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TÉMOIGNAGES ══ -->
+    <section id="temoignages" aria-labelledby="temoignages-title">
+      <div class="section-inner">
+        <div class="section-header centered">
+          <p class="section-label">Témoignages</p>
+          <h2 id="temoignages-title">Ce que disent<br />mes patients</h2>
+          <p class="section-lead">Plus de 180 avis vérifiés. La satisfaction de mes patients est ma plus belle récompense.</p>
+        </div>
+        <div class="temoignages-grid">
+          <article class="temo-card">
+            <div class="temo-stars" aria-label="Note 5 sur 5">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="temo-text">"Souffrant de lombalgies chroniques depuis 3 ans, j'ai trouvé un soulagement durable après seulement 3 séances. Marie est à l'écoute, professionnelle et ses mains sont magiques !"</p>
+            <div class="temo-author">
+              <div class="temo-avatar" aria-hidden="true">SB</div>
+              <div class="temo-author-info">
+                <strong>Sophie B.</strong>
+                <span>Patiente depuis 2022</span>
+              </div>
+            </div>
+          </article>
+          <article class="temo-card">
+            <div class="temo-stars" aria-label="Note 5 sur 5">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="temo-text">"J'ai emmené mon bébé de 2 mois pour des coliques et un torticolis. Résultat spectaculaire dès la première séance. Je recommande vivement, c'est une praticienne remarquable."</p>
+            <div class="temo-author">
+              <div class="temo-avatar" aria-hidden="true">CL</div>
+              <div class="temo-author-info">
+                <strong>Camille L.</strong>
+                <span>Maman, patiente depuis 2023</span>
+              </div>
+            </div>
+          </article>
+          <article class="temo-card">
+            <div class="temo-stars" aria-label="Note 5 sur 5">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="temo-text">"Coureur de marathon, je consulte régulièrement Marie pour prévenir les blessures. Son expertise en ostéopathie sportive est impressionnante. Jamais blessé depuis 2 saisons !"</p>
+            <div class="temo-author">
+              <div class="temo-avatar" aria-hidden="true">TD</div>
+              <div class="temo-author-info">
+                <strong>Thomas D.</strong>
+                <span>Sportif amateur, patient depuis 2021</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ DÉROULEMENT ══ -->
+    <section id="deroulement" aria-labelledby="deroulement-title">
+      <div class="section-inner">
+        <div class="section-header centered">
+          <p class="section-label">La consultation</p>
+          <h2 id="deroulement-title">Comment se déroule<br />votre séance ?</h2>
+          <p class="section-lead">Une consultation type dure entre 45 et 60 minutes. Chaque étape est importante pour vous offrir la meilleure prise en charge.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card">
+            <div class="step-number" aria-label="Étape 1">1</div>
+            <h3>L'anamnèse</h3>
+            <p>Recueil de vos antécédents médicaux, de vos douleurs actuelles et de votre mode de vie pour établir un bilan complet.</p>
+          </article>
+          <article class="step-card">
+            <div class="step-number" aria-label="Étape 2">2</div>
+            <h3>Le bilan global</h3>
+            <p>Examen postural, tests de mobilité et palpage pour identifier les zones de restriction et de tension.</p>
+          </article>
+          <article class="step-card">
+            <div class="step-number" aria-label="Étape 3">3</div>
+            <h3>Le traitement</h3>
+            <p>Application des techniques adaptées à votre situation. Les manipulations sont toujours précises, douces et consentées.</p>
+          </article>
+          <article class="step-card">
+            <div class="step-number" aria-label="Étape 4">4</div>
+            <h3>Les conseils</h3>
+            <p>Recommandations posturales, exercices d'entretien et conseils hygiéno-diététiques pour prolonger les bénéfices de la séance.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TARIFS ══ -->
+    <section id="tarifs" aria-labelledby="tarifs-title">
+      <div class="section-inner">
+        <div class="section-header centered">
+          <p class="section-label">Tarifs</p>
+          <h2 id="tarifs-title">Des soins accessibles<br />et transparents</h2>
+          <p class="section-lead">Consultez les tarifs en vigueur. Certaines mutuelles remboursent tout ou partie des séances d'ostéopathie.</p>
+        </div>
+        <div class="tarifs-grid">
+          <article class="tarif-card">
+            <h3>Première consultation</h3>
+            <p class="tarif-desc">Bilan approfondi + traitement</p>
+            <div class="tarif-price"><sup>€</sup>70 <small>/ séance</small></div>
+            <ul class="tarif-list" aria-label="Inclus dans ce tarif">
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Anamnèse complète (20 min)</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Bilan ostéopathique</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Traitement personnalisé</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Conseils postérieurs inclus</li>
+            </ul>
+            <a href="#contact" class="btn-tarif" aria-label="Réserver une première consultation">Réserver</a>
+          </article>
+          <article class="tarif-card featured" aria-label="Offre recommandée">
+            <div class="featured-badge" aria-hidden="true">Populaire</div>
+            <h3>Consultation de suivi</h3>
+            <p class="tarif-desc">Séance de suivi standard</p>
+            <div class="tarif-price"><sup>€</sup>60 <small>/ séance</small></div>
+            <ul class="tarif-list" aria-label="Inclus dans ce tarif">
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 45 à 60 minutes</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Traitement adapté</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Bilan d'évolution</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Conseils personnalisés</li>
+            </ul>
+            <a href="#contact" class="btn-tarif" aria-label="Réserver une consultation de suivi">Réserver</a>
+          </article>
+          <article class="tarif-card">
+            <h3>Nourrisson & enfant</h3>
+            <p class="tarif-desc">Moins de 6 ans</p>
+            <div class="tarif-price"><sup>€</sup>55 <small>/ séance</small></div>
+            <ul class="tarif-list" aria-label="Inclus dans ce tarif">
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Techniques ultra-douces</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Présence parent possible</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Explications aux parents</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Conseils post-naissance</li>
+            </ul>
+            <a href="#contact" class="btn-tarif" aria-label="Réserver pour un nourrisson ou un enfant">Réserver</a>
+          </article>
+        </div>
+        <div class="tarif-info" aria-label="Informations sur le remboursement">
+          <div class="tarif-info-item">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Prise en charge par de nombreuses mutuelles</span>
+          </div>
+          <div class="tarif-info-item">
+            <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            <span>Paiement : espèces, chèque, carte bancaire</span>
+          </div>
+          <div class="tarif-info-item">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span>Feuille de soin remise à chaque séance</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CONTACT / RDV ══ -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="section-inner">
+        <div class="section-header">
+          <p class="section-label">Contact & Rendez-vous</p>
+          <h2 id="contact-title">Prenons rendez-vous<br />ensemble</h2>
+          <p class="section-lead">Contactez-moi directement ou remplissez le formulaire ci-dessous. Je vous répondrai dans les meilleurs délais.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-infos" aria-label="Informations pratiques">
+            <div class="contact-info-item">
+              <div class="ci-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="ci-text">
+                <strong>Adresse du cabinet</strong>
+                <span>12 Rue de la Paix, 75002 Paris<br />Métro Opéra — Accès PMR</span>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="ci-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.66a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div class="ci-text">
+                <strong>Téléphone</strong>
+                <a href="tel:+33612345678">06 12 34 56 78</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="ci-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="ci-text">
+                <strong>Email</strong>
+                <a href="mailto:contact@osteo-cabinet.fr">contact@osteo-cabinet.fr</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="ci-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="ci-text">
+                <strong>Horaires d'ouverture</strong>
+                <span>Lundi – Vendredi : 8h – 19h30<br />Samedi : 9h – 13h</span>
+              </div>
+            </div>
+            <div class="map-placeholder" role="img" aria-label="Carte de localisation du cabinet">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Carte Google Maps — Intégrer ici
+            </div>
+          </div>
+
+          <div class="contact-form-wrap">
+            <h3>Demande de rendez-vous</h3>
+            <p>Remplissez ce formulaire et je vous confirmerai votre créneau sous 24h.</p>
+            <form id="rdvForm" novalidate aria-label="Formulaire de prise de rendez-vous">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="prenom">Prénom *</label>
+                  <input type="text" id="prenom" name="prenom" required autocomplete="given-name" placeholder="Marie" />
+                </div>
+                <div class="form-group">
+                  <label for="nom">Nom *</label>
+                  <input type="text" id="nom" name="nom" required autocomplete="family-name" placeholder="Dupont" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required autocomplete="email" placeholder="marie@exemple.fr" />
+              </div>
+              <div class="form-group">
+                <label for="tel">Téléphone</label>
+                <input type="tel" id="tel" name="tel" autocomplete="tel" placeholder="06 XX XX XX XX" />
+              </div>
+              <div class="form-group">
+                <label for="motif">Motif de consultation *</label>
+                <select id="motif" name="motif" required>
+                  <option value="" disabled selected>Sélectionner un motif…</option>
+                  <option value="douleur-dos">Douleur dorsale / lombalgie</option>
+                  <option value="cephalees">Céphalées / migraines</option>
+                  <option value="digestif">Troubles digestifs</option>
+                  <option value="nourrisson">Nourrisson / enfant</option>
+                  <option value="grossesse">Grossesse / post-partum</option>
+                  <option value="sport">Blessure sportive</option>
+                  <option value="preventif">Bilan préventif</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Message complémentaire</label>
+                <textarea id="message" name="message" placeholder="Décrivez brièvement vos symptômes, vos disponibilités préférées…"></textarea>
+              </div>
+              <button type="submit" class="btn-submit" id="submitBtn">
+                Envoyer ma demande
+              </button>
+            </form>
+            <div class="form-success" id="formSuccess" role="alert" aria-live="polite">
+              Votre demande a bien été envoyée ! Je vous contacterai dans les 24h pour confirmer votre rendez-vous.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo-badge">
+            <div class="flb-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 3.54 2.29 6.53 5.47 7.59L12 22l1.53-5.41C16.71 15.53 19 12.54 19 9c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+            </div>
+            <strong>Cabinet d'Ostéopathie</strong>
+          </div>
+          <p>Votre santé, notre engagement. Une approche globale, naturelle et personnalisée pour retrouver équilibre et bien-être.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#apropos">À propos</a></li>
+            <li><a href="#techniques">Techniques</a></li>
+            <li><a href="#pathologies">Pathologies</a></li>
+            <li><a href="#populations">Nos patients</a></li>
+            <li><a href="#tarifs">Tarifs</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#populations">Nourrissons</a></li>
+            <li><a href="#populations">Femmes enceintes</a></li>
+            <li><a href="#populations">Sportifs</a></li>
+            <li><a href="#populations">Enfants</a></li>
+            <li><a href="#techniques">Crânio-sacré</a></li>
+            <li><a href="#techniques">Viscéral</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>12 Rue de la Paix<br />75002 Paris</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.66a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>06 12 34 56 78</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Lun–Ven 8h–19h30<br />Sam 9h–13h</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Cabinet d'Ostéopathie — Marie Lefèvre D.O. Tous droits réservés.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Mentions légales</a>
+          <a href="#">Politique de confidentialité</a>
+          <a href="#">Plan du site</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Mobile menu toggle
+    function toggleMenu(btn) {
+      const menu = document.getElementById('mobileMenu');
+      const isOpen = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen);
+      btn.innerHTML = isOpen
+        ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`
+        : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>`;
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.querySelector('.nav-toggle');
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>`;
+      document.body.style.overflow = '';
+    }
+
+    // Smooth active nav links on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-50% 0px -50% 0px' });
+    sections.forEach(s => observer.observe(s));
+
+    // Form submission
+    document.getElementById('rdvForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const form = this;
+      const success = document.getElementById('formSuccess');
+
+      // Basic validation
+      const required = form.querySelectorAll('[required]');
+      let valid = true;
+      required.forEach(field => {
+        if (!field.value.trim()) {
+          field.style.borderColor = '#e53e3e';
+          valid = false;
+          field.addEventListener('input', () => field.style.borderColor = '', { once: true });
+        }
+      });
+      if (!valid) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours…';
+
+      setTimeout(() => {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      }, 1200);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.technique-card, .patho-card, .pop-card, .temo-card, .step-card, .tarif-card');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      revealEls.forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = `opacity .5s ease ${(i % 4) * 80}ms, transform .5s ease ${(i % 4) * 80}ms`;
+        revealObserver.observe(el);
+      });
+    }
+  </script>
+</body>
+</html>
