@@ -1625,6 +1625,28 @@
       </div>
     </section>
 
+    <!-- ══ MARQUEE BAND ══ -->
+    <div class="marquee-band" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-item">Ostéopathie</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Nîmes</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Sport</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Approche EBP</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Nourrissons</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Femmes enceintes</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Douleurs chroniques</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Prise en charge globale</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Ostéopathie</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Nîmes</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Sport</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Approche EBP</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Nourrissons</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Femmes enceintes</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Douleurs chroniques</span><span class="marquee-dot">✦</span>
+        <span class="marquee-item">Prise en charge globale</span><span class="marquee-dot">✦</span>
+      </div>
+    </div>
+
     <!-- ══ QUI SUIS-JE ══ -->
     <section id="apropos" aria-labelledby="quisuisje-title">
       <div class="section-inner">
@@ -2586,6 +2608,411 @@
     /* ── Floating cards above canvas ── */
     .hero-floating-card { z-index: 2; }
     .hero-card { z-index: 2; }
+
+    /* ══════════════════════════════════════
+       ANIMATIONS AVANCÉES
+    ══════════════════════════════════════ */
+
+    /* ── Page Loader ── */
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      background: var(--cream);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      transition: opacity .6s ease, visibility .6s ease;
+    }
+    #page-loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .75rem;
+      animation: fadeInUp .6s ease both;
+    }
+    .loader-icon {
+      width: 60px; height: 60px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .loader-icon svg { width: 30px; height: 30px; fill: #fff; }
+    .loader-logo span {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      letter-spacing: .02em;
+    }
+    .loader-bar {
+      width: 200px; height: 2px;
+      background: var(--cream-d);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .loader-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      border-radius: 99px;
+      animation: loader-fill .9s cubic-bezier(.4,0,.2,1) forwards;
+    }
+    @keyframes loader-fill {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+
+    /* ── Marquee band ── */
+    .marquee-band {
+      background: var(--charcoal);
+      overflow: hidden;
+      padding: .85rem 0;
+      position: relative;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      width: max-content;
+      animation: marquee-scroll 22s linear infinite;
+    }
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 2rem;
+      white-space: nowrap;
+      color: rgba(255,255,255,.65);
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .marquee-dot {
+      width: 5px; height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-band:hover .marquee-track { animation-play-state: paused; }
+
+    /* ── Word-by-word reveal ── */
+    .word-reveal .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .55s cubic-bezier(.22,1,.36,1), transform .55s cubic-bezier(.22,1,.36,1);
+    }
+    .word-reveal.visible .word { opacity: 1; transform: translateY(0); }
+
+    /* ── Gradient animated border on featured cards ── */
+    .tarif-card.featured {
+      position: relative;
+      background: var(--green);
+    }
+    .tarif-card.featured::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: calc(var(--radius) + 2px);
+      background: linear-gradient(135deg, var(--green), var(--gold), var(--green-l), var(--green));
+      background-size: 300% 300%;
+      animation: gradient-border 4s ease infinite;
+      z-index: -1;
+    }
+    @keyframes gradient-border {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ── Glow on Doctolib buttons ── */
+    .btn-doctolib-hero {
+      box-shadow: 0 0 0 0 rgba(0,166,173,0);
+      animation: doctolib-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes doctolib-pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(0,166,173,.3); }
+      50%      { box-shadow: 0 0 0 12px rgba(0,166,173,0); }
+    }
+
+    /* ── Hero animated gradient background ── */
+    #hero {
+      background: linear-gradient(135deg,
+        #f0ebe3 0%,
+        #f8f4ef 30%,
+        #eef5f1 60%,
+        #f8f4ef 100%);
+      background-size: 400% 400%;
+      animation: hero-gradient 10s ease infinite;
+    }
+    @keyframes hero-gradient {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ── Section label shimmer ── */
+    .section-label {
+      background: linear-gradient(90deg, var(--green) 0%, var(--gold) 50%, var(--green) 100%);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer-label 3s linear infinite;
+    }
+    @keyframes shimmer-label {
+      from { background-position: 0% center; }
+      to   { background-position: 200% center; }
+    }
+
+    /* ── Pop card icon spin on hover ── */
+    .pop-icon { transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
+    .pop-card:hover .pop-icon { transform: rotate(-8deg) scale(1.1); }
+
+    /* ── Step number glow on visible ── */
+    .step-number.glowing {
+      box-shadow: 0 0 0 12px rgba(74,124,89,.12), 0 0 0 24px rgba(74,124,89,.05);
+      transition: box-shadow .4s ease;
+    }
+
+    /* ── Clip-path reveal for h2 ── */
+    .clip-reveal {
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path .9s cubic-bezier(.22,1,.36,1);
+    }
+    .clip-reveal.visible { clip-path: inset(0 0% 0 0); }
+
+    /* ── Scroll-triggered background shift ── */
+    body { transition: background-color .5s ease; }
+
+    /* ── Quisuisje image morph ── */
+    .quisuisje-img-wrap {
+      animation: img-morph 8s ease-in-out infinite;
+    }
+    @keyframes img-morph {
+      0%,100% { border-radius: 28px; }
+      25%      { border-radius: 40px 20px 35px 25px; }
+      50%      { border-radius: 20px 40px 25px 35px; }
+      75%      { border-radius: 35px 25px 40px 20px; }
+    }
+
+    /* ── Highlight chip bounce ── */
+    .qs-chip { transition: transform .3s cubic-bezier(.34,1.56,.64,1), background .2s; }
+    .qs-chip:hover { transform: scale(1.06) translateY(-2px); background: rgba(74,124,89,.18); }
+
+    /* ── Patho card accent animation ── */
+    .patho-card { position: relative; overflow: hidden; }
+    .patho-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 0%;
+      background: linear-gradient(to bottom, var(--green), var(--gold));
+      transition: height .4s ease;
+    }
+    .patho-card:hover::after { height: 100%; }
+
+    /* ── Contact info icon bounce ── */
+    .ci-icon { transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
+    .contact-info-item:hover .ci-icon { transform: scale(1.15) rotate(-5deg); }
+
+    /* ── Navbar logo spin on click ── */
+    .nav-logo-icon { transition: transform .5s cubic-bezier(.34,1.56,.64,1); }
+    .nav-logo:hover .nav-logo-icon { transform: rotate(15deg) scale(1.1); }
+
+    /* ── Footer entrance ── */
+    footer { position: relative; overflow: hidden; }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(74,124,89,.12) 0%, transparent 70%);
+      pointer-events: none;
+      animation: blob-move 12s ease-in-out infinite;
+    }
   </style>
+
+  <script>
+    /* ══════════════════════════════════
+       ANIMATIONS AVANCÉES — SCRIPT
+    ══════════════════════════════════ */
+
+    // ── Page Loader ──
+    const loader = document.getElementById('page-loader');
+    if (loader) {
+      window.addEventListener('load', () => {
+        setTimeout(() => loader.classList.add('hidden'), 950);
+      });
+    }
+
+    // ── Word-by-word reveal on h2 ──
+    if (!prefersReducedMotion) {
+      document.querySelectorAll('h2').forEach(h2 => {
+        h2.classList.add('word-reveal');
+        h2.innerHTML = h2.innerHTML.split(/(<[^>]*>|[^<\s]+)/g)
+          .filter(Boolean)
+          .map(part => part.startsWith('<') ? part : `<span class="word" style="">${part}</span>`)
+          .join(' ');
+      });
+      const wordObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            const words = entry.target.querySelectorAll('.word');
+            words.forEach((w, i) => {
+              w.style.transitionDelay = `${i * 60}ms`;
+            });
+            wordObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .3 });
+      document.querySelectorAll('h2').forEach(h => wordObs.observe(h));
+    }
+
+    // ── Step number glow ──
+    if (!prefersReducedMotion) {
+      const stepNums = document.querySelectorAll('.step-number');
+      const glowObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('glowing');
+            glowObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .8 });
+      stepNums.forEach(n => glowObs.observe(n));
+    }
+
+    // ── Section label shimmer (ensure fallback for non-webkit) ──
+    document.querySelectorAll('.section-label').forEach(el => {
+      if (!CSS.supports('-webkit-background-clip', 'text')) {
+        el.style.color = 'var(--green)';
+      }
+    });
+
+    // ── Scroll-driven background tint between sections ──
+    if (!prefersReducedMotion) {
+      const sectionColors = {
+        'hero':       '#f8f4ef',
+        'apropos':    '#ffffff',
+        'techniques': '#f8f4ef',
+        'pathologies':'#ffffff',
+        'populations':'#f8f4ef',
+        'deroulement':'#ffffff',
+        'apres':      '#f8f4ef',
+        'tarifs':     '#f8f4ef',
+        'contact':    '#ffffff',
+      };
+      const bgObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const color = sectionColors[entry.target.id];
+            if (color) document.body.style.backgroundColor = color;
+          }
+        });
+      }, { rootMargin: '-40% 0px -40% 0px' });
+      Object.keys(sectionColors).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) bgObs.observe(el);
+      });
+    }
+
+    // ── Pop card sequential entrance ──
+    if (!prefersReducedMotion) {
+      const popCards = document.querySelectorAll('.pop-card');
+      const popObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const cards = entry.target.closest('.pop-grid')?.querySelectorAll('.pop-card') || [];
+            cards.forEach((c, i) => {
+              setTimeout(() => {
+                c.style.opacity = '1';
+                c.style.transform = 'translateY(0) scale(1)';
+              }, i * 100);
+            });
+            popObs.disconnect();
+          }
+        });
+      }, { threshold: .2 });
+      popCards.forEach(c => {
+        c.style.opacity = '0';
+        c.style.transform = 'translateY(30px) scale(.96)';
+        c.style.transition = 'opacity .55s cubic-bezier(.22,1,.36,1), transform .55s cubic-bezier(.22,1,.36,1)';
+      });
+      if (popCards[0]) popObs.observe(popCards[0]);
+    }
+
+    // ── Technique card flip-in stagger ──
+    if (!prefersReducedMotion) {
+      const tecCards = document.querySelectorAll('.technique-card');
+      const tecObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const all = entry.target.closest('.techniques-grid')?.querySelectorAll('.technique-card') || [];
+            all.forEach((c, i) => {
+              setTimeout(() => {
+                c.style.opacity = '1';
+                c.style.transform = 'translateY(0) rotateX(0deg)';
+              }, i * 80);
+            });
+            tecObs.disconnect();
+          }
+        });
+      }, { threshold: .15 });
+      tecCards.forEach(c => {
+        c.style.opacity = '0';
+        c.style.transform = 'translateY(28px) rotateX(6deg)';
+        c.style.transition = 'opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1)';
+        c.style.transformOrigin = 'top center';
+      });
+      if (tecCards[0]) tecObs.observe(tecCards[0]);
+    }
+
+    // ── "Qui suis-je" section parallax ──
+    if (!prefersReducedMotion) {
+      const qsImg = document.querySelector('.quisuisje-img-wrap');
+      if (qsImg) {
+        window.addEventListener('scroll', () => {
+          const rect = qsImg.closest('section')?.getBoundingClientRect();
+          if (rect && rect.top < window.innerHeight && rect.bottom > 0) {
+            const progress = 1 - (rect.top + rect.height) / (window.innerHeight + rect.height);
+            qsImg.style.transform = `translateY(${progress * -30}px)`;
+          }
+        }, { passive: true });
+      }
+    }
+
+    // ── Tarif cards pop-in ──
+    if (!prefersReducedMotion) {
+      const tarifCards = document.querySelectorAll('.tarif-card');
+      const tarifObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            tarifCards.forEach((c, i) => {
+              setTimeout(() => {
+                c.style.opacity = '1';
+                c.style.transform = 'translateY(0) scale(1)';
+              }, i * 120);
+            });
+            tarifObs.disconnect();
+          }
+        });
+      }, { threshold: .2 });
+      tarifCards.forEach(c => {
+        c.style.opacity = '0';
+        c.style.transform = 'translateY(24px) scale(.97)';
+        c.style.transition = 'opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1)';
+      });
+      if (tarifCards[0]) tarifObs.observe(tarifCards[0]);
+    }
+  </script>
 </body>
 </html>
