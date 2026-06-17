@@ -1507,6 +1507,19 @@
   <div id="scroll-progress" role="progressbar" aria-label="Progression de lecture" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
   <a href="#main" class="skip-link">Aller au contenu principal</a>
 
+  <!-- Cursor spotlight (desktop ambiance) -->
+  <div id="cursor-spotlight" aria-hidden="true"></div>
+
+  <!-- Section nav dots -->
+  <nav id="section-dots" aria-label="Navigation par sections">
+    <a href="#hero"        class="dot" data-label="Accueil"         aria-label="Aller à Accueil"></a>
+    <a href="#apropos"     class="dot" data-label="Qui suis-je"     aria-label="Aller à Qui suis-je"></a>
+    <a href="#techniques"  class="dot" data-label="Techniques"      aria-label="Aller à Techniques"></a>
+    <a href="#pathologies" class="dot" data-label="Pathologies"     aria-label="Aller à Pathologies"></a>
+    <a href="#tarifs"      class="dot" data-label="Tarifs"          aria-label="Aller à Tarifs"></a>
+    <a href="#contact"     class="dot" data-label="Contact"         aria-label="Aller à Contact"></a>
+  </nav>
+
   <!-- ══ FLOATING RDV ══ -->
   <div id="floating-rdv" class="hidden" aria-label="Prendre rendez-vous sur Doctolib">
     <a href="https://www.doctolib.fr/osteopathe/nimes/maxime-vaillant" target="_blank" rel="noopener" class="floating-rdv-btn" aria-label="Prendre rendez-vous en ligne sur Doctolib">
@@ -1592,8 +1605,8 @@
           </div>
           <div class="hero-stats" aria-label="Chiffres clés">
             <div class="hero-stat">
-              <strong>Juillet</strong>
-              <span>Ouverture 2026</span>
+              <strong id="countdown-days">14</strong>
+              <span>jours avant ouverture</span>
             </div>
             <div class="hero-stat">
               <strong>ISOGM</strong>
@@ -1623,6 +1636,10 @@
           </div>
         </div>
       </div>
+      <!-- Scroll-down arrow -->
+      <a href="#apropos" class="hero-scroll-arrow" aria-label="Défiler vers le bas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
     </section>
 
     <!-- ══ QUI SUIS-JE ══ -->
@@ -2954,6 +2971,568 @@
       });
       if (tarifCards[0]) tarifObs.observe(tarifCards[0]);
     }
+  </script>
+
+  <!-- ══════════════════════════════════════
+       AMÉLIORATIONS VISUELLES & INTERACTIVES
+  ══════════════════════════════════════ -->
+  <style>
+
+    /* ── Cursor Spotlight ── */
+    #cursor-spotlight {
+      position: fixed;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,124,89,.055) 0%, transparent 65%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      transition: opacity .4s;
+      opacity: 0;
+    }
+
+    /* ── Section nav dots ── */
+    #section-dots {
+      position: fixed;
+      right: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: .65rem;
+      z-index: 90;
+    }
+    #section-dots .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(74,124,89,.25);
+      border: 1.5px solid rgba(74,124,89,.4);
+      transition: background .3s, transform .3s, border-color .3s;
+      position: relative;
+      cursor: pointer;
+    }
+    #section-dots .dot::after {
+      content: attr(data-label);
+      position: absolute;
+      right: calc(100% + .6rem);
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--charcoal);
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 500;
+      padding: .2rem .5rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s;
+    }
+    #section-dots .dot:hover::after,
+    #section-dots .dot.active::after { opacity: 1; }
+    #section-dots .dot.active {
+      background: var(--green);
+      border-color: var(--green);
+      transform: scale(1.4);
+    }
+    #section-dots .dot:hover {
+      background: var(--green-l);
+      border-color: var(--green-l);
+      transform: scale(1.2);
+    }
+    @media (max-width: 768px) { #section-dots { display: none; } }
+
+    /* ── Hero scroll arrow ── */
+    .hero-scroll-arrow {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(74,124,89,.35);
+      color: var(--green);
+      transition: border-color .3s, background .3s, transform .3s;
+      animation: bounce-arrow 2s ease-in-out infinite;
+      z-index: 2;
+    }
+    .hero-scroll-arrow:hover {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
+      animation: none;
+      transform: translateX(-50%) translateY(-3px);
+    }
+    .hero-scroll-arrow svg { width: 20px; height: 20px; }
+    @keyframes bounce-arrow {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+    @media (max-width: 768px) { .hero-scroll-arrow { bottom: 1rem; } }
+
+    /* ── Enhanced card hover glow ── */
+    .technique-card,
+    .patho-card,
+    .pop-card,
+    .step-card,
+    .apres-item,
+    .tarif-card {
+      cursor: pointer;
+      transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease !important;
+    }
+    .technique-card:hover {
+      transform: translateY(-8px) !important;
+      box-shadow: 0 20px 48px rgba(74,124,89,.18), 0 0 0 1px rgba(74,124,89,.08) !important;
+    }
+    .patho-card:hover {
+      transform: translateY(-6px) !important;
+      box-shadow: 0 16px 40px rgba(74,124,89,.14) !important;
+    }
+    .pop-card:hover {
+      transform: translateY(-8px) scale(1.02) !important;
+      box-shadow: 0 24px 48px rgba(44,44,44,.14) !important;
+    }
+    .tarif-card:hover {
+      transform: translateY(-6px) !important;
+      box-shadow: 0 24px 56px rgba(74,124,89,.2) !important;
+    }
+
+    /* ── Button shimmer sweep on hover ── */
+    @keyframes btn-shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .btn-doctolib-hero {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-doctolib-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.18) 50%, transparent 60%);
+      background-size: 200% 100%;
+      background-position: 200% center;
+      transition: background-position .5s ease;
+      pointer-events: none;
+    }
+    .btn-doctolib-hero:hover::after {
+      background-position: -200% center;
+    }
+    .btn-tarif-doctolib {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-tarif-doctolib::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.2) 50%, transparent 60%);
+      background-size: 200% 100%;
+      background-position: 200% center;
+      transition: background-position .5s ease;
+      pointer-events: none;
+    }
+    .btn-tarif-doctolib:hover::after { background-position: -200% center; }
+
+    /* ── Universal reveal animation ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ── Countdown pulse ── */
+    #countdown-days {
+      display: inline-block;
+      animation: count-pulse 2s ease-in-out infinite;
+      color: var(--gold);
+    }
+    @keyframes count-pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.08); }
+    }
+
+    /* ── Pop card icon animated on hover ── */
+    .pop-card:hover .pop-icon svg {
+      animation: icon-spin-once .5s cubic-bezier(.22,1,.36,1);
+    }
+    @keyframes icon-spin-once {
+      0%   { transform: rotate(0deg) scale(1); }
+      50%  { transform: rotate(12deg) scale(1.15); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+
+    /* ── Section header reveal stagger ── */
+    .section-label { transition-delay: 0ms; }
+    .section-header h2 { transition-delay: 80ms; }
+    .section-header .section-lead { transition-delay: 160ms; }
+
+    /* ── Technique card icon glow ── */
+    .technique-card:hover .tc-icon {
+      background: var(--green);
+      box-shadow: 0 0 24px rgba(74,124,89,.45);
+      transition: background .3s, box-shadow .3s;
+    }
+    .technique-card:hover .tc-icon svg { stroke: #fff; }
+
+    /* ── Tarif price bounce on card hover ── */
+    .tarif-card:hover .tarif-price {
+      transform: scale(1.06);
+      transition: transform .3s cubic-bezier(.22,1,.36,1);
+    }
+
+    /* ── Apres item left bar glow ── */
+    .apres-item:hover {
+      transform: translateX(6px) !important;
+      box-shadow: 0 8px 32px rgba(74,124,89,.1) !important;
+    }
+
+    /* ── Step card pulse number ── */
+    .step-card:hover .step-number {
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 0 0 6px rgba(74,124,89,.15);
+      transition: background .3s, box-shadow .3s;
+    }
+
+    /* ── Floating bottom CTA bar ── */
+    #bottom-cta-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(44,44,44,.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: .85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      z-index: 80;
+      transform: translateY(100%);
+      transition: transform .4s cubic-bezier(.22,1,.36,1);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    #bottom-cta-bar.visible { transform: translateY(0); }
+    .bcta-text {
+      color: rgba(255,255,255,.8);
+      font-size: .88rem;
+      flex: 1;
+      min-width: 0;
+    }
+    .bcta-text strong { color: #fff; display: block; font-size: .95rem; }
+    .bcta-btn {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: .65rem 1.2rem;
+      font-size: .88rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: background .2s, transform .2s;
+      font-family: inherit;
+    }
+    .bcta-btn:hover { background: var(--green-d); transform: scale(1.03); }
+    .bcta-btn svg { width: 16px; height: 16px; fill: #fff; flex-shrink: 0; }
+    .bcta-close {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,.5);
+      cursor: pointer;
+      padding: .3rem;
+      line-height: 1;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      transition: color .2s;
+    }
+    .bcta-close:hover { color: #fff; }
+    @media (max-width: 480px) {
+      .bcta-text { display: none; }
+      .bcta-btn { flex: 1; justify-content: center; }
+    }
+
+    /* ── Card 3D micro-tilt on hover (via JS) ── */
+    .tilt-card {
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    /* ── Glassmorphism hero card enhancement ── */
+    .hero-card {
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow: 0 8px 32px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.2);
+      transition: box-shadow .3s, transform .3s;
+    }
+    .hero-card:hover {
+      box-shadow: 0 20px 48px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.25);
+    }
+
+    /* ── Section wave shape ── */
+    .wave-top {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      margin-bottom: -2px;
+    }
+    .wave-top svg { display: block; width: 100%; }
+
+    /* ── Apropos section highlight ── */
+    #apropos {
+      position: relative;
+    }
+    #apropos::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: -10%;
+      width: 60%;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(74,124,89,.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    #apropos .section-inner { position: relative; z-index: 1; }
+
+    /* ── Patho card number ── */
+    .patho-card .patho-number {
+      position: absolute;
+      top: .75rem; right: .75rem;
+      font-size: .7rem;
+      font-weight: 700;
+      color: rgba(74,124,89,.25);
+      letter-spacing: .05em;
+    }
+    .patho-card { position: relative; }
+
+    /* ── Pop card "available" indicator ── */
+    .pop-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      border-radius: 0 0 var(--radius) var(--radius);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s cubic-bezier(.22,1,.36,1);
+    }
+    .pop-card:hover::after { transform: scaleX(1); }
+    .pop-card { position: relative; overflow: hidden; }
+
+    /* ── Hero badge shimmer ── */
+    .hero-badge {
+      background: linear-gradient(90deg, rgba(74,124,89,.12) 0%, rgba(201,168,76,.12) 50%, rgba(74,124,89,.12) 100%);
+      background-size: 200% 100%;
+      animation: badge-shimmer 3s ease infinite;
+    }
+    @keyframes badge-shimmer {
+      0%, 100% { background-position: 0% center; }
+      50%       { background-position: 100% center; }
+    }
+
+    /* ── Transition d'entrée des sections ── */
+    section { position: relative; }
+
+  </style>
+
+  <!-- Bottom CTA bar -->
+  <div id="bottom-cta-bar" role="complementary" aria-label="Prendre rendez-vous">
+    <div class="bcta-text">
+      <strong>Prendre rendez-vous</strong>
+      Disponible dès juillet 2026 · Nîmes
+    </div>
+    <a href="https://www.doctolib.fr/osteopathe/nimes/maxime-vaillant" target="_blank" rel="noopener" class="bcta-btn" aria-label="Réserver sur Doctolib">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      Réserver sur Doctolib
+    </a>
+    <button class="bcta-close" id="bcta-close-btn" aria-label="Fermer">✕</button>
+  </div>
+
+  <script>
+    (function() {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ── Cursor spotlight ── */
+      if (!prefersReducedMotion && window.innerWidth > 768) {
+        const spotlight = document.getElementById('cursor-spotlight');
+        if (spotlight) {
+          document.addEventListener('mousemove', e => {
+            spotlight.style.left = e.clientX + 'px';
+            spotlight.style.top  = e.clientY + 'px';
+            spotlight.style.opacity = '1';
+          }, { passive: true });
+          document.addEventListener('mouseleave', () => { spotlight.style.opacity = '0'; });
+        }
+      }
+
+      /* ── Section nav dots ── */
+      (function() {
+        const dots = document.querySelectorAll('#section-dots .dot');
+        const sections = ['hero','apropos','techniques','pathologies','tarifs','contact'];
+        function updateDots() {
+          const scrollY = window.scrollY + window.innerHeight * .4;
+          let active = 0;
+          sections.forEach((id, i) => {
+            const el = document.getElementById(id);
+            if (el && el.offsetTop <= scrollY) active = i;
+          });
+          dots.forEach((d, i) => d.classList.toggle('active', i === active));
+        }
+        window.addEventListener('scroll', updateDots, { passive: true });
+        updateDots();
+      })();
+
+      /* ── Countdown to July 1 2026 ── */
+      (function() {
+        const el = document.getElementById('countdown-days');
+        if (!el) return;
+        const opening = new Date('2026-07-01T00:00:00');
+        function tick() {
+          const diff = opening - Date.now();
+          if (diff <= 0) { el.closest('.hero-stat').querySelector('span').textContent = 'Ouvert !'; el.textContent = '🎉'; return; }
+          const days = Math.floor(diff / 86400000);
+          el.textContent = days;
+        }
+        tick();
+        setInterval(tick, 60000);
+      })();
+
+      /* ── Universal reveal on scroll ── */
+      if (!prefersReducedMotion) {
+        const revealEls = document.querySelectorAll('.section-header, .quisuisje-visual, .quisuisje-content, .apres-item, .step-card, .pop-card, .tarif-info-item, .ci-block');
+        const revObs = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('reveal', 'visible');
+              revObs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+
+        revealEls.forEach((el, i) => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(28px)';
+          el.style.transition = `opacity .7s cubic-bezier(.22,1,.36,1) ${i % 4 * 80}ms, transform .7s cubic-bezier(.22,1,.36,1) ${i % 4 * 80}ms`;
+          revObs.observe(el);
+        });
+
+        const revealGroupObs = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const children = entry.target.children;
+              Array.from(children).forEach((child, i) => {
+                setTimeout(() => {
+                  child.style.opacity = '1';
+                  child.style.transform = 'translateY(0)';
+                }, i * 90);
+              });
+              revealGroupObs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: .1 });
+
+        const grids = document.querySelectorAll('.pop-grid, .tarifs-grid');
+        grids.forEach(g => {
+          Array.from(g.children).forEach(child => {
+            child.style.opacity = '0';
+            child.style.transform = 'translateY(24px)';
+            child.style.transition = 'opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1)';
+          });
+          revealGroupObs.observe(g);
+        });
+      }
+
+      /* ── 3D micro-tilt on cards ── */
+      if (!prefersReducedMotion && window.innerWidth > 768) {
+        const tiltTargets = document.querySelectorAll('.technique-card, .pop-card, .tarif-card');
+        tiltTargets.forEach(card => {
+          card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width  - .5;
+            const y = (e.clientY - rect.top)  / rect.height - .5;
+            card.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-6px)`;
+          }, { passive: true });
+          card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.transition = 'transform .4s cubic-bezier(.22,1,.36,1), box-shadow .3s ease';
+          });
+          card.addEventListener('mouseenter', () => {
+            card.style.transition = 'none';
+          });
+        });
+      }
+
+      /* ── Bottom CTA bar show after hero ── */
+      (function() {
+        const bar = document.getElementById('bottom-cta-bar');
+        const closeBtn = document.getElementById('bcta-close-btn');
+        if (!bar) return;
+        let dismissed = false;
+        function checkBar() {
+          if (dismissed) return;
+          const hero = document.getElementById('hero');
+          if (hero) {
+            const past = window.scrollY > hero.offsetHeight * .8;
+            bar.classList.toggle('visible', past);
+          }
+        }
+        window.addEventListener('scroll', checkBar, { passive: true });
+        if (closeBtn) {
+          closeBtn.addEventListener('click', () => {
+            dismissed = true;
+            bar.style.transform = 'translateY(100%)';
+          });
+        }
+      })();
+
+      /* ── Hero scroll arrow fade ── */
+      (function() {
+        const arrow = document.querySelector('.hero-scroll-arrow');
+        if (!arrow) return;
+        window.addEventListener('scroll', () => {
+          arrow.style.opacity = window.scrollY > 80 ? '0' : '1';
+          arrow.style.pointerEvents = window.scrollY > 80 ? 'none' : '';
+        }, { passive: true });
+      })();
+
+      /* ── Patho card numbers ── */
+      document.querySelectorAll('.patho-card').forEach((card, i) => {
+        const num = document.createElement('span');
+        num.className = 'patho-number';
+        num.textContent = String(i + 1).padStart(2, '0');
+        card.appendChild(num);
+      });
+
+    })();
   </script>
 </body>
 </html>
