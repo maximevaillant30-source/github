@@ -1625,28 +1625,6 @@
       </div>
     </section>
 
-    <!-- ══ MARQUEE BAND ══ -->
-    <div class="marquee-band" aria-hidden="true">
-      <div class="marquee-track">
-        <span class="marquee-item">Ostéopathie</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Nîmes</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Sport</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Approche EBP</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Nourrissons</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Femmes enceintes</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Douleurs chroniques</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Prise en charge globale</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Ostéopathie</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Nîmes</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Sport</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Approche EBP</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Nourrissons</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Femmes enceintes</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Douleurs chroniques</span><span class="marquee-dot">✦</span>
-        <span class="marquee-item">Prise en charge globale</span><span class="marquee-dot">✦</span>
-      </div>
-    </div>
-
     <!-- ══ QUI SUIS-JE ══ -->
     <section id="apropos" aria-labelledby="quisuisje-title">
       <div class="section-inner">
@@ -2664,43 +2642,6 @@
       from { width: 0; }
       to   { width: 100%; }
     }
-
-    /* ── Marquee band ── */
-    .marquee-band {
-      background: var(--charcoal);
-      overflow: hidden;
-      padding: .85rem 0;
-      position: relative;
-    }
-    .marquee-track {
-      display: flex;
-      gap: 0;
-      width: max-content;
-      animation: marquee-scroll 22s linear infinite;
-    }
-    .marquee-item {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 0 2rem;
-      white-space: nowrap;
-      color: rgba(255,255,255,.65);
-      font-size: .82rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-    .marquee-dot {
-      width: 5px; height: 5px;
-      background: var(--gold);
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    @keyframes marquee-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    .marquee-band:hover .marquee-track { animation-play-state: paused; }
 
     /* ── Word-by-word reveal ── */
     .word-reveal .word {
