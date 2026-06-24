@@ -536,93 +536,103 @@
     #pathologies { background: var(--white); }
 
     /* Filtres */
-    .patho-filters {
+    /* ── Accordéon pathologies ── */
+    .patho-accordion {
       display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-      margin-bottom: 2rem;
+      flex-direction: column;
+      gap: .6rem;
+      max-width: 860px;
+      margin: 0 auto;
     }
-    .patho-filter {
-      background: var(--cream);
-      border: 1.5px solid var(--cream-d);
-      border-radius: 999px;
-      padding: .45rem 1.1rem;
-      font-size: .82rem;
-      font-weight: 600;
-      color: var(--mid);
-      cursor: pointer;
-      transition: background .2s, border-color .2s, color .2s, transform .15s;
-      font-family: inherit;
+    .patho-acc-item {
+      background: #fff;
+      border: 1.5px solid rgba(74,124,89,.18);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color .2s, box-shadow .2s;
     }
-    .patho-filter:hover {
+    .patho-acc-item.open {
       border-color: var(--green);
-      color: var(--green);
-      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(74,124,89,.1);
     }
-    .patho-filter.active {
-      background: var(--green);
-      border-color: var(--green);
-      color: #fff;
-    }
-
-    /* Nouvelle grille */
-    .patho-grid-new {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-    .patho-item {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      background: var(--cream);
-      border-radius: var(--radius);
-      padding: 1.1rem 1.2rem;
-      border-left: 3px solid var(--green);
-      transition: background .25s, transform .25s, box-shadow .25s, opacity .3s;
-      cursor: default;
-    }
-    .patho-item:hover {
-      background: rgba(74,124,89,.09);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(74,124,89,.12);
-    }
-    .patho-item.hidden {
-      display: none;
-    }
-    .patho-item-icon {
-      width: 36px; height: 36px;
-      background: rgba(74,124,89,.1);
-      border-radius: 8px;
+    .patho-acc-header {
+      width: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: .85rem;
+      padding: 1rem 1.3rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+      transition: background .18s;
+    }
+    .patho-acc-header:hover { background: rgba(74,124,89,.04); }
+    .patho-acc-item.open .patho-acc-header { background: rgba(74,124,89,.06); }
+    .patho-acc-icon {
+      width: 36px; height: 36px;
+      background: rgba(74,124,89,.1);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
-      transition: background .25s;
     }
-    .patho-item:hover .patho-item-icon {
-      background: var(--green);
-    }
-    .patho-item-icon svg { width: 18px; height: 18px; stroke: var(--green); transition: stroke .25s; }
-    .patho-item:hover .patho-item-icon svg { stroke: #fff; }
-    .patho-item h4 {
-      font-size: .88rem;
+    .patho-acc-icon svg { width: 18px; height: 18px; stroke: var(--green); }
+    .patho-acc-item.open .patho-acc-icon { background: var(--green); }
+    .patho-acc-item.open .patho-acc-icon svg { stroke: #fff; }
+    .patho-acc-title {
+      flex: 1;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--charcoal);
-      margin-bottom: .2rem;
-      line-height: 1.3;
     }
-    .patho-item p {
-      font-size: .78rem;
+    .patho-acc-count {
+      font-size: .75rem;
       color: var(--mid);
-      line-height: 1.5;
-    }
-    .patho-count {
-      text-align: center;
-      margin-top: 1.5rem;
-      font-size: .82rem;
-      color: var(--light);
+      background: var(--cream);
+      border-radius: 999px;
+      padding: .2rem .7rem;
       font-weight: 500;
+      white-space: nowrap;
+    }
+    .patho-acc-arrow {
+      width: 20px; height: 20px; flex-shrink: 0;
+      transition: transform .25s;
+    }
+    .patho-acc-arrow svg { width: 20px; height: 20px; stroke: var(--mid); }
+    .patho-acc-item.open .patho-acc-arrow { transform: rotate(180deg); }
+    .patho-acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+    }
+    .patho-acc-item.open .patho-acc-body { max-height: 600px; }
+    .patho-acc-list {
+      list-style: none;
+      padding: .2rem 1.3rem 1.1rem 1.3rem;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .5rem .8rem;
+    }
+    .patho-acc-list li {
+      display: flex;
+      flex-direction: column;
+      padding: .6rem .85rem;
+      background: var(--cream);
+      border-radius: 8px;
+      border-left: 3px solid var(--green);
+    }
+    .patho-acc-list li strong {
+      font-size: .85rem;
+      color: var(--charcoal);
+      font-weight: 700;
+      margin-bottom: .15rem;
+    }
+    .patho-acc-list li span {
+      font-size: .76rem;
+      color: var(--mid);
+      line-height: 1.4;
     }
     .patho-note {
       margin-top: 2.5rem;
@@ -636,8 +646,10 @@
     }
     .patho-note svg { width: 22px; height: 22px; stroke: var(--green); fill: none; flex-shrink: 0; margin-top: 2px; }
     .patho-note p { font-size: .9rem; color: var(--mid); line-height: 1.6; }
-    @media (max-width: 900px) { .patho-grid-new { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 480px) { .patho-grid-new { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) {
+      .patho-acc-list { grid-template-columns: 1fr; }
+      .patho-acc-title { font-size: .92rem; }
+    }
 
     /* ── Populations ── */
     #populations { background: var(--cream); }
@@ -1957,378 +1969,146 @@
           <p class="section-lead">L'ostéopathie ne se limite pas au dos. Filtrez par catégorie pour découvrir tout ce que je peux traiter.</p>
         </div>
 
-        <!-- Filtres interactifs -->
-        <div class="patho-filters" role="tablist" aria-label="Filtrer par catégorie">
-          <button class="patho-filter active" data-cat="all" role="tab" aria-selected="true">Tout voir</button>
-          <button class="patho-filter" data-cat="rachis" role="tab" aria-selected="false">Colonne & dos</button>
-          <button class="patho-filter" data-cat="articulaire" role="tab" aria-selected="false">Articulations</button>
-          <button class="patho-filter" data-cat="tete" role="tab" aria-selected="false">Tête & neuro</button>
-          <button class="patho-filter" data-cat="digestif" role="tab" aria-selected="false">Digestif & viscéral</button>
-          <button class="patho-filter" data-cat="sport" role="tab" aria-selected="false">Sport</button>
-          <button class="patho-filter" data-cat="gyneco" role="tab" aria-selected="false">Gynéco & pédiatrie</button>
-          <button class="patho-filter" data-cat="autre" role="tab" aria-selected="false">Autres</button>
-        </div>
+        <div class="patho-accordion" id="patho-accordion">
 
-        <div class="patho-grid-new" role="list" id="patho-grid">
 
           <!-- Colonne & dos -->
-          <div class="patho-item" data-cat="rachis" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2v20M8 6h8M8 10h8M8 14h8M8 18h8"/></svg>
-            </div>
-            <div>
-              <h4>Lombalgie & lumbago</h4>
-              <p>Douleur aiguë ou chronique du bas du dos</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="rachis" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2v20M8 6h8M8 10h8M8 14h8M8 18h8"/></svg>
-            </div>
-            <div>
-              <h4>Cervicalgie & torticolis</h4>
-              <p>Douleurs de la nuque, raideur cervicale</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="rachis" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2v20M8 6h8M8 10h8M8 14h8M8 18h8"/></svg>
-            </div>
-            <div>
-              <h4>Sciatique & névralgie</h4>
-              <p>Douleur irradiante dans la jambe, cruralgie</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="rachis" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2v20M8 6h8M8 10h8M8 14h8M8 18h8"/></svg>
-            </div>
-            <div>
-              <h4>Hernie discale</h4>
-              <p>Prise en charge fonctionnelle, soulagement des symptômes</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="rachis" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2v20M8 6h8M8 10h8M8 14h8M8 18h8"/></svg>
-            </div>
-            <div>
-              <h4>Dorsalgie</h4>
-              <p>Douleurs entre les omoplates, blocage dorsal</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="rachis" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2v20M8 6h8M8 10h8M8 14h8M8 18h8"/></svg>
-            </div>
-            <div>
-              <h4>Scoliose fonctionnelle</h4>
-              <p>Accompagnement des déséquilibres posturaux</p>
+          <div class="patho-acc-item open" data-acc="rachis">
+            <button class="patho-acc-header" aria-expanded="true">
+              <span class="patho-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2v20M8 6h8M8 10h8M8 14h8M8 18h8"/></svg></span>
+              <span class="patho-acc-title">Colonne & dos</span>
+              <span class="patho-acc-count">6 motifs</span>
+              <span class="patho-acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="patho-acc-body">
+              <ul class="patho-acc-list">
+                <li><strong>Lombalgie & lumbago</strong><span>Douleur aiguë ou chronique du bas du dos</span></li>
+                <li><strong>Cervicalgie & torticolis</strong><span>Douleurs de la nuque, raideur cervicale</span></li>
+                <li><strong>Sciatique & névralgie</strong><span>Douleur irradiante dans la jambe, cruralgie</span></li>
+                <li><strong>Hernie discale</strong><span>Prise en charge fonctionnelle, soulagement des symptômes</span></li>
+                <li><strong>Dorsalgie</strong><span>Douleurs entre les omoplates, blocage dorsal</span></li>
+                <li><strong>Scoliose fonctionnelle</strong><span>Accompagnement des déséquilibres posturaux</span></li>
+              </ul>
             </div>
           </div>
 
           <!-- Articulations -->
-          <div class="patho-item" data-cat="articulaire" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3c0 9 0 9 0 18M3 12h18"/></svg>
-            </div>
-            <div>
-              <h4>Douleur d'épaule</h4>
-              <p>Tendinite coiffe, périarthrite, conflit sous-acromial</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="articulaire" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3c0 9 0 9 0 18M3 12h18"/></svg>
-            </div>
-            <div>
-              <h4>Genou douloureux</h4>
-              <p>Tendinite, chondropathie, syndrome fémoro-patellaire</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="articulaire" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3c0 9 0 9 0 18M3 12h18"/></svg>
-            </div>
-            <div>
-              <h4>Cheville & pied</h4>
-              <p>Entorse, fasciite plantaire, syndrome du canal tarsien</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="articulaire" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3c0 9 0 9 0 18M3 12h18"/></svg>
-            </div>
-            <div>
-              <h4>Hanche</h4>
-              <p>Coxalgie, raideur, douleur à l'aine</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="articulaire" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3c0 9 0 9 0 18M3 12h18"/></svg>
-            </div>
-            <div>
-              <h4>Coude & poignet</h4>
-              <p>Tennis elbow, épicondylite, syndrome canal carpien</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="articulaire" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3c0 9 0 9 0 18M3 12h18"/></svg>
-            </div>
-            <div>
-              <h4>Sacro-iliaque & coccyx</h4>
-              <p>Douleurs du bassin, déséquilibre pelvien</p>
+          <div class="patho-acc-item" data-acc="articulaire">
+            <button class="patho-acc-header" aria-expanded="false">
+              <span class="patho-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3c0 9 0 9 0 18M3 12h18"/></svg></span>
+              <span class="patho-acc-title">Articulations</span>
+              <span class="patho-acc-count">6 motifs</span>
+              <span class="patho-acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="patho-acc-body">
+              <ul class="patho-acc-list">
+                <li><strong>Douleur d'épaule</strong><span>Tendinite coiffe, périarthrite, conflit sous-acromial</span></li>
+                <li><strong>Genou douloureux</strong><span>Tendinite, chondropathie, syndrome fémoro-patellaire</span></li>
+                <li><strong>Cheville & pied</strong><span>Entorse, fasciite plantaire, syndrome du canal tarsien</span></li>
+                <li><strong>Hanche</strong><span>Coxalgie, raideur, douleur à l'aine</span></li>
+                <li><strong>Coude & poignet</strong><span>Tennis elbow, épicondylite, syndrome canal carpien</span></li>
+                <li><strong>Sacro-iliaque & coccyx</strong><span>Douleurs du bassin, déséquilibre pelvien</span></li>
+              </ul>
             </div>
           </div>
 
           <!-- Tête & neuro -->
-          <div class="patho-item" data-cat="tete" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            </div>
-            <div>
-              <h4>Céphalées & migraines</h4>
-              <p>Maux de tête tensionnels, migraines, céphalées cervicogéniques</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="tete" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            </div>
-            <div>
-              <h4>Vertiges positionnels</h4>
-              <p>VPPB, vertiges cervicaux, troubles de l'équilibre</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="tete" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            </div>
-            <div>
-              <h4>ATM & mâchoire</h4>
-              <p>Douleurs de la mâchoire, craquements, bruxisme</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="tete" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            </div>
-            <div>
-              <h4>Acouphènes</h4>
-              <p>Bourdonnements, sifflements d'oreilles, origine fonctionnelle</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="tete" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            </div>
-            <div>
-              <h4>Névralgie d'Arnold</h4>
-              <p>Douleurs en casque, sensibilité du cuir chevelu</p>
+          <div class="patho-acc-item" data-acc="tete">
+            <button class="patho-acc-header" aria-expanded="false">
+              <span class="patho-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+              <span class="patho-acc-title">Tête & neurologie</span>
+              <span class="patho-acc-count">5 motifs</span>
+              <span class="patho-acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="patho-acc-body">
+              <ul class="patho-acc-list">
+                <li><strong>Céphalées & migraines</strong><span>Maux de tête tensionnels, migraines, céphalées cervicogéniques</span></li>
+                <li><strong>Vertiges positionnels</strong><span>VPPB, vertiges cervicaux, troubles de l'équilibre</span></li>
+                <li><strong>ATM & mâchoire</strong><span>Douleurs de la mâchoire, craquements, bruxisme</span></li>
+                <li><strong>Acouphènes</strong><span>Bourdonnements, sifflements d'oreilles, origine fonctionnelle</span></li>
+                <li><strong>Névralgie d'Arnold</strong><span>Douleurs en casque, sensibilité du cuir chevelu</span></li>
+              </ul>
             </div>
           </div>
 
           <!-- Digestif & viscéral -->
-          <div class="patho-item" data-cat="digestif" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7z"/></svg>
-            </div>
-            <div>
-              <h4>Colon irritable (SII)</h4>
-              <p>Ballonnements, douleurs abdominales, transit irrégulier</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="digestif" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7z"/></svg>
-            </div>
-            <div>
-              <h4>Reflux gastro-oesophagien</h4>
-              <p>Remontées acides, brûlures, gêne digestive haute</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="digestif" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7z"/></svg>
-            </div>
-            <div>
-              <h4>Constipation chronique</h4>
-              <p>Ralentissement du transit, troubles fonctionnels intestinaux</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="digestif" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7z"/></svg>
-            </div>
-            <div>
-              <h4>Troubles urinaires fonctionnels</h4>
-              <p>Pollakiurie, légères fuites, inconfort pelvien</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="digestif" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7z"/></svg>
-            </div>
-            <div>
-              <h4>Douleurs pelviennes</h4>
-              <p>Tensions abdominales, adhérences post-opératoires</p>
+          <div class="patho-acc-item" data-acc="digestif">
+            <button class="patho-acc-header" aria-expanded="false">
+              <span class="patho-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7z"/></svg></span>
+              <span class="patho-acc-title">Digestif & viscéral</span>
+              <span class="patho-acc-count">5 motifs</span>
+              <span class="patho-acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="patho-acc-body">
+              <ul class="patho-acc-list">
+                <li><strong>Colon irritable (SII)</strong><span>Ballonnements, douleurs abdominales, transit irrégulier</span></li>
+                <li><strong>Reflux gastro-oesophagien</strong><span>Remontées acides, brûlures, gêne digestive haute</span></li>
+                <li><strong>Constipation chronique</strong><span>Ralentissement du transit, troubles fonctionnels intestinaux</span></li>
+                <li><strong>Troubles urinaires fonctionnels</strong><span>Pollakiurie, légères fuites, inconfort pelvien</span></li>
+                <li><strong>Douleurs pelviennes</strong><span>Tensions abdominales, adhérences post-opératoires</span></li>
+              </ul>
             </div>
           </div>
 
           <!-- Sport -->
-          <div class="patho-item" data-cat="sport" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <div>
-              <h4>Entorse & claquage</h4>
-              <p>Traumatismes musculaires et ligamentaires du sportif</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="sport" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <div>
-              <h4>Tendinopathie</h4>
-              <p>Achille, rotulien, sus-épineux, ischio-jambiers</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="sport" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <div>
-              <h4>Syndrome de la bandelette IT</h4>
-              <p>Douleur externe du genou du coureur</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="sport" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <div>
-              <h4>Périostite tibiale</h4>
-              <p>Shin splits, douleurs de course, stress tibial</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="sport" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <div>
-              <h4>Prévention & performance</h4>
-              <p>Bilan fonctionnel, récupération, optimisation gestuelle</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="sport" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <div>
-              <h4>Pubalgie</h4>
-              <p>Douleur inguinale du sportif, ostéopathie pubienne</p>
+          <div class="patho-acc-item" data-acc="sport">
+            <button class="patho-acc-header" aria-expanded="false">
+              <span class="patho-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+              <span class="patho-acc-title">Sport & traumatologie</span>
+              <span class="patho-acc-count">6 motifs</span>
+              <span class="patho-acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="patho-acc-body">
+              <ul class="patho-acc-list">
+                <li><strong>Entorse & claquage</strong><span>Traumatismes musculaires et ligamentaires du sportif</span></li>
+                <li><strong>Tendinopathie</strong><span>Achille, rotulien, sus-épineux, ischio-jambiers</span></li>
+                <li><strong>Syndrome de la bandelette IT</strong><span>Douleur externe du genou du coureur</span></li>
+                <li><strong>Périostite tibiale</strong><span>Shin splits, douleurs de course, stress tibial</span></li>
+                <li><strong>Pubalgie</strong><span>Douleur inguinale du sportif, ostéopathie pubienne</span></li>
+                <li><strong>Prévention & performance</strong><span>Bilan fonctionnel, récupération, optimisation gestuelle</span></li>
+              </ul>
             </div>
           </div>
 
           <!-- Gynéco & pédiatrie -->
-          <div class="patho-item" data-cat="gyneco" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M20 21v-2a7 7 0 0 0-14 0v2"/></svg>
-            </div>
-            <div>
-              <h4>Grossesse</h4>
-              <p>Lombalgies, sciatique, douleurs ligamentaires, syndrome du canal carpien</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="gyneco" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M20 21v-2a7 7 0 0 0-14 0v2"/></svg>
-            </div>
-            <div>
-              <h4>Post-partum</h4>
-              <p>Récupération pelvienne, diastasis, douleurs de cicatrice</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="gyneco" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="5" r="3"/><path d="M12 22V8m-4 4H4m16-4h-4l1 6m-9 0l1-6"/></svg>
-            </div>
-            <div>
-              <h4>Nourrisson — coliques</h4>
-              <p>Pleurs excessifs, inconfort digestif, régurgitations</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="gyneco" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="5" r="3"/><path d="M12 22V8m-4 4H4m16-4h-4l1 6m-9 0l1-6"/></svg>
-            </div>
-            <div>
-              <h4>Plagiocéphalie & torticolis</h4>
-              <p>Déformation du crâne, asymétrie posturale du nourrisson</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="gyneco" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="5" r="3"/><path d="M12 22V8m-4 4H4m16-4h-4l1 6m-9 0l1-6"/></svg>
-            </div>
-            <div>
-              <h4>Dysménorrhées</h4>
-              <p>Douleurs menstruelles, syndrome prémenstruel</p>
+          <div class="patho-acc-item" data-acc="gyneco">
+            <button class="patho-acc-header" aria-expanded="false">
+              <span class="patho-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M20 21v-2a7 7 0 0 0-14 0v2"/></svg></span>
+              <span class="patho-acc-title">Gynécologie & pédiatrie</span>
+              <span class="patho-acc-count">5 motifs</span>
+              <span class="patho-acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="patho-acc-body">
+              <ul class="patho-acc-list">
+                <li><strong>Grossesse</strong><span>Lombalgies, sciatique, douleurs ligamentaires, canal carpien</span></li>
+                <li><strong>Post-partum</strong><span>Récupération pelvienne, diastasis, douleurs de cicatrice</span></li>
+                <li><strong>Nourrisson — coliques</strong><span>Pleurs excessifs, inconfort digestif, régurgitations</span></li>
+                <li><strong>Plagiocéphalie & torticolis</strong><span>Déformation du crâne, asymétrie posturale du nourrisson</span></li>
+                <li><strong>Dysménorrhées</strong><span>Douleurs menstruelles, syndrome prémenstruel</span></li>
+              </ul>
             </div>
           </div>
 
           <!-- Autres -->
-          <div class="patho-item" data-cat="autre" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-            </div>
-            <div>
-              <h4>Fatigue & burn-out</h4>
-              <p>Fatigue chronique, surmenage, somatisations liées au stress</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="autre" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-            </div>
-            <div>
-              <h4>Troubles du sommeil</h4>
-              <p>Insomnie, sommeil agité, tension musculaire nocturne</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="autre" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-            </div>
-            <div>
-              <h4>Séquelles post-traumatiques</h4>
-              <p>Accident de voiture, chute, douleurs résiduelles</p>
+          <div class="patho-acc-item" data-acc="autre">
+            <button class="patho-acc-header" aria-expanded="false">
+              <span class="patho-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
+              <span class="patho-acc-title">Autres motifs</span>
+              <span class="patho-acc-count">5 motifs</span>
+              <span class="patho-acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="patho-acc-body">
+              <ul class="patho-acc-list">
+                <li><strong>Fatigue & burn-out</strong><span>Fatigue chronique, surmenage, somatisations liées au stress</span></li>
+                <li><strong>Troubles du sommeil</strong><span>Insomnie, sommeil agité, tension musculaire nocturne</span></li>
+                <li><strong>Séquelles post-traumatiques</strong><span>Accident de voiture, chute, douleurs résiduelles</span></li>
+                <li><strong>Prévention & bien-être</strong><span>Bilan postural, entretien articulaire, prévention des douleurs</span></li>
+                <li><strong>Troubles ORL</strong><span>Sinusites récidivantes, otites, rhino-pharyngites fréquentes</span></li>
+              </ul>
             </div>
           </div>
-          <div class="patho-item" data-cat="autre" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-            </div>
-            <div>
-              <h4>Prévention & bien-être</h4>
-              <p>Bilan postural, entretien articulaire, prévention des douleurs</p>
-            </div>
-          </div>
-          <div class="patho-item" data-cat="autre" role="listitem">
-            <div class="patho-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-            </div>
-            <div>
-              <h4>Troubles ORL</h4>
-              <p>Sinusites récidivantes, otites, rhino-pharyngites fréquentes</p>
-            </div>
-          </div>
-        </div>
 
-        <div class="patho-count" aria-live="polite" id="patho-count">35 motifs de consultation</div>
+        </div>
 
         <div class="patho-note" role="note" aria-label="Note importante">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -4592,34 +4372,16 @@
 
     })();
 
-    /* ── Filtres pathologies interactifs ── */
+    /* ── Accordéon pathologies ── */
     (function() {
-      const filters = document.querySelectorAll('.patho-filter');
-      const items   = document.querySelectorAll('.patho-item');
-      const counter = document.getElementById('patho-count');
-
-      function updateCount() {
-        const visible = document.querySelectorAll('.patho-item:not(.hidden)').length;
-        const total   = items.length;
-        if (counter) counter.textContent = visible === total
-          ? total + ' motifs de consultation'
-          : visible + ' motif' + (visible > 1 ? 's' : '') + ' affiché' + (visible > 1 ? 's' : '');
-      }
-
-      filters.forEach(btn => {
+      document.querySelectorAll('.patho-acc-header').forEach(btn => {
         btn.addEventListener('click', () => {
-          filters.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
-          btn.classList.add('active');
-          btn.setAttribute('aria-selected','true');
-          const cat = btn.dataset.cat;
-          items.forEach(item => {
-            const show = cat === 'all' || item.dataset.cat === cat;
-            item.classList.toggle('hidden', !show);
-          });
-          updateCount();
+          const item = btn.closest('.patho-acc-item');
+          const isOpen = item.classList.contains('open');
+          item.classList.toggle('open', !isOpen);
+          btn.setAttribute('aria-expanded', String(!isOpen));
         });
       });
-      updateCount();
     })();
 
     /* ── Photo de fond hero depuis la galerie cabinet ── */
