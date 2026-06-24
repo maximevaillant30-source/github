@@ -1496,13 +1496,43 @@
 
     /* ── Animated Section Headers ── */
     .reveal { opacity: 0; }
-    .reveal.visible { animation: fadeInUp .7s ease forwards; }
+    .reveal.visible { animation: fadeInUp .75s cubic-bezier(.22,1,.36,1) forwards; }
     .reveal-left { opacity: 0; }
-    .reveal-left.visible { animation: fadeInLeft .7s ease forwards; }
+    .reveal-left.visible { animation: fadeInLeft .75s cubic-bezier(.22,1,.36,1) forwards; }
     .reveal-right { opacity: 0; }
-    .reveal-right.visible { animation: fadeInRight .7s ease forwards; }
+    .reveal-right.visible { animation: fadeInRight .75s cubic-bezier(.22,1,.36,1) forwards; }
     .reveal-scale { opacity: 0; }
-    .reveal-scale.visible { animation: scaleIn .6s ease forwards; }
+    .reveal-scale.visible { animation: scaleIn .65s cubic-bezier(.22,1,.36,1) forwards; }
+
+    /* ── Transitions de section fluides ── */
+    section { will-change: auto; }
+    .section-header .section-label { transition: letter-spacing .4s ease; }
+    .section-header:hover .section-label { letter-spacing: .14em; }
+
+    /* ── Hero photo parallax ── */
+    #hero-bg-photo { transform-origin: center center; will-change: transform; }
+
+    /* ── Micro-interaction : titres au survol ── */
+    .hero-fullscreen-title { transition: letter-spacing .3s ease; }
+
+    /* ── Blog card image zoom ── */
+    .blog-card { overflow: hidden; }
+    .blog-card-img { overflow: hidden; }
+
+    /* ── Smooth section dividers ── */
+    section + section { position: relative; }
+    section + section::before {
+      content: '';
+      display: block;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, rgba(74,124,89,.12) 30%, rgba(201,168,76,.18) 70%, transparent 100%);
+      margin-bottom: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      #hero-bg-photo { transform: none !important; }
+    }
 
     /* ── Technique Card Enhanced ── */
     .technique-card {
@@ -2431,7 +2461,7 @@
 
         <article class="blog-card blog-card--featured">
           <div class="blog-card-img" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=75" alt="Personne souffrant de lombalgie" loading="lazy" />
+            <img src="https://picsum.photos/seed/backpain/600/300" alt="Personne souffrant de lombalgie" loading="lazy" />
             <div class="blog-card-img-overlay"></div>
           </div>
           <div class="blog-card-body">
@@ -2450,7 +2480,7 @@
 
         <article class="blog-card">
           <div class="blog-card-img" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=600&q=75" alt="Sportif en entraînement" loading="lazy" />
+            <img src="https://picsum.photos/seed/athlete/600/300" alt="Sportif en entraînement" loading="lazy" />
             <div class="blog-card-img-overlay"></div>
           </div>
           <div class="blog-card-body">
@@ -2469,7 +2499,7 @@
 
         <article class="blog-card">
           <div class="blog-card-img" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1544568100-847a23e12021?auto=format&fit=crop&w=600&q=75" alt="Nourrisson paisible" loading="lazy" />
+            <img src="https://picsum.photos/seed/newborn/600/300" alt="Nourrisson paisible" loading="lazy" />
             <div class="blog-card-img-overlay"></div>
           </div>
           <div class="blog-card-body">
@@ -2488,7 +2518,7 @@
 
         <article class="blog-card">
           <div class="blog-card-img" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1537365587684-f490102e1225?auto=format&fit=crop&w=600&q=75" alt="Femme enceinte" loading="lazy" />
+            <img src="https://picsum.photos/seed/pregnancy/600/300" alt="Femme enceinte" loading="lazy" />
             <div class="blog-card-img-overlay"></div>
           </div>
           <div class="blog-card-body">
@@ -2507,7 +2537,7 @@
 
         <article class="blog-card">
           <div class="blog-card-img" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=75" alt="Personne avec maux de tête" loading="lazy" />
+            <img src="https://picsum.photos/seed/headache/600/300" alt="Personne avec maux de tête" loading="lazy" />
             <div class="blog-card-img-overlay"></div>
           </div>
           <div class="blog-card-body">
@@ -2526,7 +2556,7 @@
 
         <article class="blog-card">
           <div class="blog-card-img" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=75" alt="Séance d'ostéopathie" loading="lazy" />
+            <img src="https://picsum.photos/seed/osteopath/600/300" alt="Séance d'ostéopathie" loading="lazy" />
             <div class="blog-card-img-overlay"></div>
           </div>
           <div class="blog-card-body">
@@ -2789,15 +2819,50 @@
       });
     }
 
-    // ── Parallax on hero blobs ──
+    // ── Parallax hero photo + blobs ──
+    const heroBgPhoto = document.getElementById('hero-bg-photo');
     if (!prefersReducedMotion) {
       window.addEventListener('scroll', () => {
         const y = window.scrollY;
+        // Parallax sur la photo hero : se déplace doucement vers le bas
+        if (heroBgPhoto) heroBgPhoto.style.transform = `translateY(${y * 0.28}px) scale(1.08)`;
+        // Parallax sur les blobs décoratifs
         const b1 = document.querySelector('.hero-blob');
         const b2 = document.querySelector('.hero-blob-2');
-        if (b1) b1.style.transform += ` translateY(${y * 0.12}px)`;
-        if (b2) b2.style.transform += ` translateY(${y * -0.08}px)`;
+        if (b1) b1.style.transform = `translateY(${y * 0.12}px)`;
+        if (b2) b2.style.transform = `translateY(${y * -0.08}px)`;
       }, { passive: true });
+      // Scale initial pour éviter un bord blanc sur le parallax
+      if (heroBgPhoto) heroBgPhoto.style.transformOrigin = 'center center';
+    }
+
+    // ── Reveal staggeré : blog, vidéos, accordéon ──
+    if (!prefersReducedMotion) {
+      const staggerGroups = [
+        { selector: '.blog-card',       axis: 'Y', dist: 40 },
+        { selector: '.video-card',      axis: 'Y', dist: 40 },
+        { selector: '.patho-acc-item',  axis: 'X', dist: -30 },
+        { selector: '.blog-card-img img', axis: 'scale', dist: 1.06 },
+      ];
+      const staggerObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'none';
+            staggerObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      staggerGroups.forEach(({ selector, axis, dist }) => {
+        document.querySelectorAll(selector).forEach((el, i) => {
+          const delay = (i % 3) * 110;
+          if (axis === 'scale') return; // images gérées par CSS hover
+          const t = axis === 'X' ? `translateX(${dist}px)` : `translateY(${dist}px)`;
+          el.style.cssText += `opacity:0;transform:${t};transition:opacity .6s cubic-bezier(.22,1,.36,1) ${delay}ms,transform .6s cubic-bezier(.22,1,.36,1) ${delay}ms;`;
+          staggerObs.observe(el);
+        });
+      });
     }
 
     // ── Cursor glow on all cards ──
