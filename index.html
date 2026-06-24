@@ -3678,7 +3678,7 @@
       object-fit: cover;
       object-position: center;
       z-index: 0;
-      filter: brightness(.38) saturate(.8);
+      filter: brightness(.68) saturate(.9);
     }
     /* Overlay dégradé par-dessus la photo */
     #hero-bg-overlay {
@@ -3686,9 +3686,9 @@
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(10,20,14,.35) 0%,
-        rgba(10,20,14,.55) 50%,
-        rgba(10,20,14,.75) 100%
+        rgba(10,20,14,.15) 0%,
+        rgba(10,20,14,.28) 50%,
+        rgba(10,20,14,.55) 100%
       );
       z-index: 1;
     }
@@ -4627,7 +4627,7 @@
       const hero = document.getElementById('hero');
       if (!hero || galImages.length === 0) return;
       const img = document.createElement('img');
-      img.src = galImages[0].src;
+      img.src = galImages[1].src;
       img.id = 'hero-bg-photo';
       img.alt = '';
       img.setAttribute('aria-hidden', 'true');
