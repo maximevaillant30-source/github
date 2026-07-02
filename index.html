@@ -9,6 +9,41 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <style>
+    /* ── Loader ── */
+    #page-loader {
+      position: fixed; inset: 0; z-index: 99999;
+      background: #1a2e22;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 1.2rem;
+      transition: opacity .5s ease, visibility .5s ease;
+    }
+    #page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-logo {
+      display: flex; flex-direction: column; align-items: center; gap: .6rem;
+    }
+    .loader-icon {
+      width: 52px; height: 52px; fill: #4a7c59;
+      animation: loader-pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes loader-pulse {
+      0%, 100% { transform: scale(1); opacity: .8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+    .loader-name {
+      font-family: Georgia, serif; font-size: 1.2rem; color: #fff;
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+    .loader-bar-wrap {
+      width: 120px; height: 2px; background: rgba(255,255,255,.15); border-radius: 2px; overflow: hidden;
+    }
+    .loader-bar {
+      height: 100%; width: 0%; background: linear-gradient(90deg, #3dba6e, #c9a84c);
+      border-radius: 2px; animation: loader-fill .9s ease forwards;
+      animation-delay: .1s;
+    }
+    @keyframes loader-fill { to { width: 100%; } }
+  </style>
+  <style>
     /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -1644,6 +1679,15 @@
   </style>
 </head>
 <body>
+  <!-- Loader -->
+  <div id="page-loader" aria-hidden="true">
+    <div class="loader-logo">
+      <svg class="loader-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 3.54 2.29 6.53 5.47 7.59L12 22l1.53-5.41C16.71 15.53 19 12.54 19 9c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+      <span class="loader-name">Maxime Vaillant</span>
+    </div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  </div>
+
 
   <div id="scroll-progress" role="progressbar" aria-label="Progression de lecture" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
   <a href="#main" class="skip-link">Aller au contenu principal</a>
@@ -4818,6 +4862,20 @@
       img.alt = '';
       img.setAttribute('aria-hidden', 'true');
       hero.insertBefore(img, hero.firstChild);
+    })();
+
+    /* ── Masquer le loader une fois tout chargé ── */
+    (function() {
+      const loader = document.getElementById('page-loader');
+      if (!loader) return;
+      function hideLoader() {
+        setTimeout(() => loader.classList.add('hidden'), 900);
+      }
+      if (document.readyState === 'complete') {
+        hideLoader();
+      } else {
+        window.addEventListener('load', hideLoader);
+      }
     })();
 
     /* ── Scroll progress bar ── */
